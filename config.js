@@ -17,6 +17,7 @@ module.exports = {
                 map: function (doc) {
                     if (doc.$kind !== 'sample') return;
                     var content = doc.$content;
+                    var general = content.general || {};
                     var nmr = content.spectra.nmr;
                     var ir = content.spectra.ir;
                     var mass = content.spectra.mass;
@@ -34,9 +35,9 @@ module.exports = {
                     emitWithOwner(doc.$id, {
                         reactionCode: doc.$id[0],
                         batchCode: doc.$id[1],
-                        description: content.general.description,
-                        mf: content.general.mf,
-                        mw: content.general.mw,
+                        description: general.description,
+                        mf: general.mf,
+                        mw: general.mw,
                         hasNmr: nmr && nmr.length,
                         hasIR: ir && ir.length,
                         hasMass: mass && mass.length,
@@ -44,7 +45,7 @@ module.exports = {
                         has2d: has2d,
                         nb1d: nb1d,
                         nb2d: nb2d,
-                        molfile: content.general.molfile,
+                        molfile: general.molfile,
                         id: doc._id
                     });
                 },
