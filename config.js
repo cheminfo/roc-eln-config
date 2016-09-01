@@ -1,6 +1,6 @@
 module.exports = {
     customDesign: {
-        version: 9,
+        version: 10,
         views: {
             analysisBySampleId: {
                 map: function(doc) {
@@ -32,8 +32,7 @@ module.exports = {
                     }
 
                     emitWithOwner(doc.$id, {
-                        reactionCode: doc.$id[0],
-                        batchCode: doc.$id[1],
+                        reference: doc.$id.join(" "),
                         description: content.general.description,
                         mf: content.general.mf,
                         mw: content.general.mw,
