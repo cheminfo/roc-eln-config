@@ -1,6 +1,6 @@
 module.exports = {
     customDesign: {
-        version: 15,
+        version: 16,
         views: {
             lib: {
                 ocl: '/usr/local/rest-on-couch/eln/openchemlib-core.js'
