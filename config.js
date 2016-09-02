@@ -1,7 +1,10 @@
 module.exports = {
     customDesign: {
-        version: 10,
+        version: 15,
         views: {
+            lib: {
+                ocl: '/usr/local/rest-on-couch/eln/openchemlib-core.js'
+            },
             analysisBySampleId: {
                 map: function(doc) {
                     if(doc.$type !== 'entry') return;
@@ -31,6 +34,14 @@ module.exports = {
                         }
                     }
 
+                    var oclid = '';
+                    if (doc.$content.general && doc.$content.general.molfile) {
+                        var OCL = require('views/lib/ocl');
+                        try {
+                            oclid = OCL.Molecule.fromMolfile(doc.$content.general.molfile).getIDCode();
+                        } catch (e) {}
+                    }
+
                     emitWithOwner(doc.$id, {
                         reference: doc.$id.join(" "),
                         description: content.general.description,
@@ -43,7 +54,7 @@ module.exports = {
                         has2d: has2d,
                         nb1d: nb1d,
                         nb2d: nb2d,
-                        molfile: content.general.molfile,
+                        oclid: oclid,
                         id: doc._id
                     });
                 },
