@@ -1,6 +1,6 @@
 module.exports = {
     customDesign: {
-        version: 16,
+        version: 17,
         views: {
             lib: {
                 ocl: '/usr/local/rest-on-couch/eln/openchemlib-core.js'
@@ -59,6 +59,7 @@ module.exports = {
                         nb1d: nb1d,
                         nb2d: nb2d,
                         oclid: oclid,
+                        modificationDate: doc.$modificationDate
                     });
                 },
                 withOwner: true
