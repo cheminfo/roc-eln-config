@@ -20,6 +20,7 @@ module.exports = {
                 map: function (doc) {
                     if (doc.$kind !== 'sample') return;
                     var content = doc.$content;
+                    var general = content.general || {};
                     var nmr = content.spectra.nmr;
                     var ir = content.spectra.ir;
                     var mass = content.spectra.mass;
@@ -47,6 +48,9 @@ module.exports = {
                         description: content.general.description,
                         mf: content.general.mf,
                         mw: content.general.mw,
+                        description: general.description,
+                        mf: general.mf,
+                        mw: general.mw,
                         hasNmr: nmr && nmr.length,
                         hasIR: ir && ir.length,
                         hasMass: mass && mass.length,
@@ -55,7 +59,6 @@ module.exports = {
                         nb1d: nb1d,
                         nb2d: nb2d,
                         oclid: oclid,
-                        id: doc._id
                     });
                 },
                 withOwner: true
