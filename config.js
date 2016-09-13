@@ -45,10 +45,6 @@ module.exports = {
 
                     emitWithOwner(doc.$id, {
                         reference: doc.$id.join(" "),
-                        description: content.general.description,
-                        mf: content.general.mf,
-                        mw: content.general.mw,
-                        description: general.description,
                         mf: general.mf,
                         mw: general.mw,
                         hasNmr: nmr && nmr.length,
