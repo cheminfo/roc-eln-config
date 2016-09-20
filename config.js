@@ -59,7 +59,39 @@ module.exports = {
                     });
                 },
                 withOwner: true
-            }  
+            },
+            substructureSearch: {
+                map: function(doc) {
+                    if (doc.$content.general && doc.$content.general.molfile) {
+                        var OCL = require('views/lib/ocl');
+                        try {
+                            var mol = OCL.Molecule.fromMolfile(doc.$content.general.molfile);
+                            var result = {
+                                reference: doc.$id.join(' ')
+                            };
+                            result.idcode = mol.getIDCodeAndCoordinates();
+                            var mf = mol.getMolecularFormula();
+                            result.mf = mf.formula;
+                            result.em = mf.absoluteWeight;
+                            result.mw = mf.relativeWeight;
+                            result.index = mol.getIndex();
+                            var prop = mol.getProperties();
+                            result.properties = {
+                                acc: prop.acceptorCount,
+                                don: prop.donorCount,
+                                logp: prop.logp,
+                                logs: prop.logs,
+                                psa: prop.polarSurfaceArea,
+                                rot: prop.rotatableBondCount,
+                                ste: prop.stereoCenterCount
+                            };
+                            emitWithOwner(null, result);
+                        } catch (e) {}
+                    }
+                },
+                withOwner: true,
+                // designDoc: 'sss'
+            }
         }
     }
 };
