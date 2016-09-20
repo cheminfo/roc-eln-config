@@ -1,6 +1,6 @@
 module.exports = {
     customDesign: {
-        version: 18,
+        version: 19,
         views: {
             lib: {
                 ocl: '/usr/local/rest-on-couch/eln/openchemlib-core.js'
@@ -62,7 +62,7 @@ module.exports = {
             },
             substructureSearch: {
                 map: function(doc) {
-                    if (doc.$content.general && doc.$content.general.molfile) {
+                    if (doc.$kind === 'sample' && doc.$content.general && doc.$content.general.molfile) {
                         var OCL = require('views/lib/ocl');
                         try {
                             var mol = OCL.Molecule.fromMolfile(doc.$content.general.molfile);
