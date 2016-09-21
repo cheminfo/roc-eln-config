@@ -66,6 +66,7 @@ module.exports = {
                         var OCL = require('views/lib/ocl');
                         try {
                             var mol = OCL.Molecule.fromMolfile(doc.$content.general.molfile);
+                            if (mol.getAllAtoms()===0) return;
                             var result = {
                                 reference: doc.$id.join(' ')
                             };
