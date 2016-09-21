@@ -1,6 +1,6 @@
 module.exports = {
     customDesign: {
-        version: 19,
+        version: 20,
         views: {
             lib: {
                 ocl: '/usr/local/rest-on-couch/eln/openchemlib-core.js'
@@ -79,8 +79,8 @@ module.exports = {
                             result.properties = {
                                 acc: prop.acceptorCount,
                                 don: prop.donorCount,
-                                logp: prop.logp,
-                                logs: prop.logs,
+                                logp: prop.logP,
+                                logs: prop.logS,
                                 psa: prop.polarSurfaceArea,
                                 rot: prop.rotatableBondCount,
                                 ste: prop.stereoCenterCount
