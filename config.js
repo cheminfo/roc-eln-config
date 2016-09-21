@@ -90,7 +90,7 @@ module.exports = {
                     }
                 },
                 withOwner: true,
-                // designDoc: 'sss'
+                designDoc: 'sss'
             }
         }
     }
