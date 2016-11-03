@@ -63,6 +63,32 @@ module.exports = {
                 },
                 withOwner: true,
                 designDoc: 'sss'
+            },
+            stockToc: {
+                map: function(doc) {
+                    if(doc.$kind === 'sample' && doc.$content.general && doc.$content.general) {
+                        var OCL = require('views/lib/ocl');
+                        var getReference = require('views/lib/getReference').getReference;
+                        try {
+                            var mol = OCL.Molecule.fromMolfile(doc.$content.general.molfile);
+                            var result = {
+                                reference: getReference(doc)
+                            };
+                            result.idcode = mol.getIDCodeAndCoordinates();
+                            var mf = mol.getMolecularFormula();
+                            result.mf = mf.formula;
+                            result.mw = mf.relativeWeight;
+                            result.index = mol.getIndex();
+                            if(doc.$content.identifier && doc.$content.identifier.cas) {
+                                result.cas = doc.$content.identifier.cas;
+                            }
+                            result.name = doc.$content.general.name;
+                            emitWithOwner(null, result);
+                        } catch(e) {}
+                    }
+                },
+                withOwner: true,
+                designDoc: 'stock'
             }
         }
     }
