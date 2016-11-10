@@ -32,7 +32,6 @@ module.exports = {
             },
             sampleId: {
                 map: function(doc) {
-                    "use strict";
                     if(doc.$type !== 'entry' || doc.$kind !== 'sample') return;
                     emit(doc.$id[0]);
                 },
