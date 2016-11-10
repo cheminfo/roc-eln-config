@@ -57,7 +57,7 @@ module.exports = {
                     } else {
                         for(i=0; i<values.length; i++) {
                             for(var key in values[i]) {
-                                s(values[i][key], obj);
+                                s(key + values[i][key], obj);
                             }
                         }
                     }
