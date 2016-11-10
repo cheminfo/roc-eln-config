@@ -37,14 +37,14 @@ module.exports = {
                     emit(doc.$id[0]);
                 },
                 reduce: function (keys, values, rereduce) {
-                    var regexp = /^([A-Za-z]+)(\d+)$/;
+                    var regexp = /^([A-Za-z]+)(\d+)(-.)?$/;
                     function s(k, obj) {
                         var m = regexp.exec(k);
                         if(m && m[1] && m[2]) {
-                            if(!obj[m[1]]) obj[m[1]] = m[0];
+                            if(!obj[m[1]]) obj[m[1]] = m[2];
                             else {
-                                if(obj[m[1]] < m[0]) {
-                                    obj[m[1]] = m[0];
+                                if(obj[m[1]] < m[2]) {
+                                    obj[m[1]] = m[2];
                                 }
                             }
                         }
