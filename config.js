@@ -1,6 +1,6 @@
 module.exports = {
     customDesign: {
-        version: 24,
+        version: 25,
         views: {
             lib: {
                 getReference: './getReference.js',
