@@ -1,6 +1,6 @@
 module.exports = {
     customDesign: {
-        version: 26,
+        version: 27,
         views: {
             lib: {
                 getReference: './getReference.js',
@@ -122,7 +122,7 @@ module.exports = {
                     }
                 },
                 withOwner: true,
-                designDoc: 'stock'
+                designDoc: 'stockSSS'
             }
         }
     }
