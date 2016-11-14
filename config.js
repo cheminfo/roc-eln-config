@@ -117,6 +117,18 @@ module.exports = {
                                 result.cas = doc.$content.identifier.cas;
                             }
                             result.name = doc.$content.general.name;
+                            if(doc.$content.stock && doc.$content.stock.history) {
+                                var history = doc.$content.stock.history.sort(function(a, b) {
+                                    return a.date - b.date;
+                                });
+                                if(history.length) {
+                                    result.last = {
+                                        loc: result[0].localisation,
+                                        date: result[0].date,
+                                        status: result[0].status
+                                    }
+                                }
+                            }
                             emitWithOwner(null, result);
                         } catch(e) {}
                     }
