@@ -1,6 +1,6 @@
 module.exports = {
     customDesign: {
-        version: 30,
+        version: 31,
         views: {
             lib: {
                 getReference: './getReference.js',
@@ -59,7 +59,8 @@ module.exports = {
                     } else {
                         for (i = 0; i < values.length; i++) {
                             for (var key in values[i]) {
-                                s(key + values[i][key], obj);
+                                console.log(key, values[i][key]);
+                                s(key + '-' + values[i][key], obj);
                             }
                         }
                     }
