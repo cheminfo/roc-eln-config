@@ -59,7 +59,6 @@ module.exports = {
                     } else {
                         for (i = 0; i < values.length; i++) {
                             for (var key in values[i]) {
-                                console.log(key, values[i][key]);
                                 s(key + '-' + values[i][key], obj);
                             }
                         }
