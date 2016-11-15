@@ -5,8 +5,7 @@ module.exports = {
             lib: {
                 getReference: './getReference.js',
                 getToc: './getToc.js',
-                ocl: './openchemlib-core.js',
-                util: './util.js'
+                ocl: './openchemlib-core.js'
             },
             analysisBySampleId: {
                 map: function (doc) {
@@ -108,8 +107,32 @@ module.exports = {
                     emit(doc.$content.stock.supplier)
                 },
                 reduce: function (keys, values, rereduce) {
-                    var util = require('views/lib/util');
-                    return util.countKeys(keys, values, rereduce);
+                    function countKeys(keys, values, rereduce) {
+                        var val = {};
+                        if (rereduce) {
+                            for (var i = 0; i < values.length; i++) {
+                                for (var key in values[i]) {
+                                    if (!val[key]) {
+                                        val[key] = values[i][key];
+                                    } else {
+                                        val[key] += values[i][key];
+                                    }
+                                }
+                            }
+                        } else {
+                            for (var i = 0; i < keys.length; i++) {
+                                var key = keys[i][0];
+                                if (!val[key]) {
+                                    val[key] = 1;
+                                } else {
+                                    val[key]++;
+                                }
+                            }
+                        }
+                        return val;
+                    }
+
+                    return countKeys(keys, values, rereduce);
                 },
                 designDoc: 'stock'
             },
@@ -123,8 +146,32 @@ module.exports = {
                     }
                 },
                 reduce: function (keys, values, rereduce) {
-                    var util = require('views/lib/util');
-                    return util.countKeys(keys, values, rereduce);
+                    function countKeys(keys, values, rereduce) {
+                        var val = {};
+                        if (rereduce) {
+                            for (var i = 0; i < values.length; i++) {
+                                for (var key in values[i]) {
+                                    if (!val[key]) {
+                                        val[key] = values[i][key];
+                                    } else {
+                                        val[key] += values[i][key];
+                                    }
+                                }
+                            }
+                        } else {
+                            for (var i = 0; i < keys.length; i++) {
+                                var key = keys[i][0];
+                                if (!val[key]) {
+                                    val[key] = 1;
+                                } else {
+                                    val[key]++;
+                                }
+                            }
+                        }
+                        return val;
+                    }
+
+                    return countKeys(keys, values, rereduce);
                 },
                 designDoc: 'stock'
             },
@@ -146,8 +193,8 @@ module.exports = {
                             if (doc.$content.identifier && doc.$content.identifier.cas && doc.$content.identifier.cas.length) {
                                 var cas = doc.$content.identifier.cas;
                                 var c;
-                                for(var i=0; i<cas.length; i++) {
-                                    if(cas[i].preferred) {
+                                for (var i = 0; i < cas.length; i++) {
+                                    if (cas[i].preferred) {
                                         c = cas[i];
                                         break;
                                     }
