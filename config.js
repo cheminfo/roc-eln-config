@@ -1,6 +1,6 @@
 module.exports = {
     customDesign: {
-        version: 32,
+        version: 33,
         views: {
             lib: {
                 getReference: './getReference.js',
@@ -119,7 +119,7 @@ module.exports = {
                     if (!doc.$content.stock) return;
                     var history = doc.$content.stock.history;
                     if (history && history.length) {
-                        emit(history[history.length - 1]);
+                        emit(history[history.length - 1].location);
                     }
                 },
                 reduce: function (keys, values, rereduce) {
