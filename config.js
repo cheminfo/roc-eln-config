@@ -1,6 +1,6 @@
 module.exports = {
     customDesign: {
-        version: 28,
+        version: 29,
         views: {
             lib: {
                 getReference: './getReference.js',
@@ -145,7 +145,7 @@ module.exports = {
                             result.index = mol.getIndex();
                             if (doc.$content.identifier && doc.$content.identifier.cas && doc.$content.identifier.cas.length) {
                                 var cas = doc.$content.identifier.cas;
-                                var c = cas.find(c => c.preferred);
+                                var c = cas.find(function(c) { return c.preferred});
                                 if (!c) c = cas[0];
                                 result.cas = c.value;
                             }
