@@ -1,6 +1,6 @@
 module.exports = {
     customDesign: {
-        version: 31,
+        version: 32,
         views: {
             lib: {
                 getReference: './getReference.js',
@@ -160,7 +160,7 @@ module.exports = {
                                 var history = doc.$content.stock.history;
                                 var last = history[history.length - 1];
                                 result.last = {
-                                    loc: last.localisation,
+                                    loc: last.location,
                                     date: last.date,
                                     status: last.status
                                 };
