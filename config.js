@@ -113,8 +113,11 @@ module.exports = {
                             result.mf = mf.formula;
                             result.mw = mf.relativeWeight;
                             result.index = mol.getIndex();
-                            if(doc.$content.identifier && doc.$content.identifier.cas) {
-                                result.cas = doc.$content.identifier.cas;
+                            if(doc.$content.identifier && doc.$content.identifier.cas && doc.$content.identifier.cas.length) {
+                                var cas = doc.$content.identifier.cas;
+                                var c = cas.find(c => c.preferred);
+                                if(!c) c = cas[0];
+                                result.cas = c.value;
                             }
                             result.name = doc.$content.general.name;
                             if(doc.$content.stock && doc.$content.stock.history && doc.$content.stock.history.length) {
