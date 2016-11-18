@@ -202,7 +202,7 @@ module.exports = {
                                 if (!c) c = cas[0];
                                 result.cas = c.value;
                             }
-                            result.name = doc.$content.general.name;
+                            result.name = doc.$content.general.name || [];
                             if (doc.$content.stock && doc.$content.stock.history && doc.$content.stock.history.length) {
                                 var history = doc.$content.stock.history;
                                 var last = history[history.length - 1];
