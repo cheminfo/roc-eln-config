@@ -30,6 +30,13 @@ module.exports = {
                 },
                 withOwner: true
             },
+            sampleByUuid: {
+                map: function (doc) {
+                    if(doc.$type === 'sample') {
+                        emit(doc._id, null);
+                    }
+                }
+            },
             sampleId: {
                 map: function (doc) {
                     if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
