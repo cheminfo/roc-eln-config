@@ -1,4 +1,16 @@
 module.exports = {
+    defaultEntry: function() {
+        return {
+            spectra: {
+                nmr: [],
+                ir: [],
+                raman: [],
+                mass: [],
+                gc: [],
+                lc: []
+            }
+        };
+    },
     customDesign: {
         version: 35,
         views: {
