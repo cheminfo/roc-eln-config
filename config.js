@@ -12,7 +12,7 @@ module.exports = {
         };
     },
     customDesign: {
-        version: 36,
+        version: 37,
         views: {
             lib: {
                 getReference: './getReference.js',
@@ -44,7 +44,7 @@ module.exports = {
             },
             sampleByUuid: {
                 map: function (doc) {
-                    if(doc.$type === 'sample') {
+                    if(doc.$type === 'entry' && doc.$kind === 'sample') {
                         emit(doc._id, null);
                     }
                 }
