@@ -12,7 +12,7 @@ module.exports = {
         };
     },
     customDesign: {
-        version: 35,
+        version: 36,
         views: {
             lib: {
                 getReference: './getReference.js',
