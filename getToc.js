@@ -2,9 +2,10 @@
 exports.getToc = function(doc) {
     var content = doc.$content;
     var general = content.general || {};
-    var nmr = content.spectra.nmr;
-    var ir = content.spectra.ir;
-    var mass = content.spectra.mass;
+    var spectra = content.spectra || {};
+    var nmr = spectra.nmr;
+    var ir = spectra.ir;
+    var mass = spectra.mass;
     var nb1d = 0, nb2d = 0;
     if(nmr) {
         var has1d = nmr.some(function(nmr) { return nmr.dimension === 1 });
