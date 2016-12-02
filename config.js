@@ -12,7 +12,7 @@ module.exports = {
         };
     },
     customDesign: {
-        version: 39,
+        version: 40,
         views: {
             lib: {
                 getReference: './getReference.js',
@@ -45,7 +45,7 @@ module.exports = {
             sampleByUuid: {
                 map: function (doc) {
                     if(doc.$type === 'entry' && doc.$kind === 'sample') {
-                        emit(doc._id, null);
+                        emitWithOwner(doc._id, null);
                     }
                 },
                 withOwner: true
@@ -53,7 +53,7 @@ module.exports = {
             sampleId: {
                 map: function (doc) {
                     if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
-                    emitWithOwner(doc.$id[0]);
+                    emit(doc.$id[0]);
                 },
                 reduce: function (keys, values, rereduce) {
                     var regexp = /^([A-Za-z]+)-(\d+)(-.)?$/;
