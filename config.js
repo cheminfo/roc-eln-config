@@ -12,7 +12,7 @@ module.exports = {
         };
     },
     customDesign: {
-        version: 37,
+        version: 38,
         views: {
             lib: {
                 getReference: './getReference.js',
@@ -161,7 +161,7 @@ module.exports = {
                     if (!doc.$content.stock) return;
                     var history = doc.$content.stock.history;
                     if (history && history.length) {
-                        emit(history[history.length - 1].location);
+                        emit(history[0].location);
                     }
                 },
                 reduce: function (keys, values, rereduce) {
@@ -224,7 +224,7 @@ module.exports = {
                             result.name = doc.$content.general.name || [];
                             if (doc.$content.stock && doc.$content.stock.history && doc.$content.stock.history.length) {
                                 var history = doc.$content.stock.history;
-                                var last = history[history.length - 1];
+                                var last = history[0];
                                 result.last = {
                                     loc: last.location,
                                     date: last.date,
