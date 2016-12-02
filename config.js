@@ -12,7 +12,7 @@ module.exports = {
         };
     },
     customDesign: {
-        version: 38,
+        version: 39,
         views: {
             lib: {
                 getReference: './getReference.js',
@@ -47,12 +47,13 @@ module.exports = {
                     if(doc.$type === 'entry' && doc.$kind === 'sample') {
                         emit(doc._id, null);
                     }
-                }
+                },
+                withOwner: true
             },
             sampleId: {
                 map: function (doc) {
                     if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
-                    emit(doc.$id[0]);
+                    emitWithOwner(doc.$id[0]);
                 },
                 reduce: function (keys, values, rereduce) {
                     var regexp = /^([A-Za-z]+)-(\d+)(-.)?$/;
