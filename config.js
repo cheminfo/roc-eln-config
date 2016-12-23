@@ -239,7 +239,15 @@ module.exports = {
                 },
                 withOwner: true,
                 designDoc: 'stockSSS'
-            }
+            },
+            analysisRequestByUuid: {
+                map: function (doc) {
+                    if (doc.$kind !== 'analysisRequest') return;
+                    emit([doc.$owners[0], doc.$content.productUuid]);
+                },
+                designDoc: 'analysisRequest'
+            },
+ 
         }
     }
 };
