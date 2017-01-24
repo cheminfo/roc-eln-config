@@ -14,6 +14,7 @@ module.exports = {
         throw new Error('unimplemented');
     },
     parse(filename, contents) {
+        contents = getContentString(contents);
         const reference = filename.replace('.fid', '');
         const toReturn = {
             jpath: 'spectra.nmr',
@@ -35,3 +36,10 @@ module.exports = {
         return toReturn;
     }
 };
+
+function getContentString(contents) {
+    if (!contents._string) {
+        contents._string = contents.toString('latin1');
+    }
+    return contents._string;
+}
