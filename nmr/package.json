@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "roc-nmr-import",
+  "version": "1.0.0",
+  "dependencies": {
+    "nmr-metadata": "^1.2.0"
+  }
+}
