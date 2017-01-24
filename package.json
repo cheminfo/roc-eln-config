@@ -6,5 +6,8 @@
   "repository": "git@github.com:cheminfo/roc-eln-config.git",
   "author": "Daniel Kostro <kostro.d@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "dependencies": {
+     "nmr-metadata": "^1.2.0"
+  }
 }
