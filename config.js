@@ -15,9 +15,9 @@ module.exports = {
         version: 40,
         views: {
             lib: {
-                getReference: './getReference.js',
-                getToc: './getToc.js',
-                ocl: './openchemlib-core.js'
+                getReference: ['./getReference.js', 'app', 'sss', 'stockSSS'],
+                getToc: ['./getToc.js', 'app'],
+                ocl: ['./openchemlib-core.js', 'sss', 'stockSSS']
             },
             analysisBySampleId: {
                 map: function (doc) {
