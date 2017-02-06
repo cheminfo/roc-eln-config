@@ -89,7 +89,7 @@ module.exports = {
                 map: function (doc) {
                     if (doc.$kind === 'sample' && doc.$content.general && doc.$content.general.molfile) {
                         var idStart = doc.$id;
-                        if(idStart && idStart.length) {
+                        if(idStart && idStart.length && typeof idStart === 'object') {
                             idStart = idStart[0];
                         }
                         var idReg = /^(.*)-/;
@@ -99,6 +99,7 @@ module.exports = {
                         } else {
                             idStart = null;
                         }
+
                         var OCL = require('views/lib/ocl');
                         var getReference = require('views/lib/getReference').getReference;
                         try {
@@ -209,6 +210,18 @@ module.exports = {
             stockToc: {
                 map: function (doc) {
                     if (doc.$kind === 'sample' && doc.$content.general && doc.$content.general) {
+                        var idStart = doc.$id;
+                        if(idStart && idStart.length && typeof idStart === 'object') {
+                            idStart = idStart[0];
+                        }
+                        var idReg = /^(.*)-/;
+                        var m = idReg.exec(idStart);
+                        if(m && m[1]) {
+                            idStart = m[1];
+                        } else {
+                            idStart = null;
+                        }
+
                         var OCL = require('views/lib/ocl');
                         var getReference = require('views/lib/getReference').getReference;
                         try {
@@ -243,7 +256,7 @@ module.exports = {
                                     status: last.status
                                 };
                             }
-                            emitWithOwner(null, result);
+                            emitWithOwner(idStart, result);
                         } catch (e) {
                         }
                     }
