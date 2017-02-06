@@ -88,6 +88,17 @@ module.exports = {
             substructureSearch: {
                 map: function (doc) {
                     if (doc.$kind === 'sample' && doc.$content.general && doc.$content.general.molfile) {
+                        var idStart = doc.$id;
+                        if(idStart && idStart.length) {
+                            idStart = idStart[0];
+                        }
+                        var idReg = /^(.*)-/;
+                        var m = idReg.exec(idStart);
+                        if(m && m[1]) {
+                            idStart = m[1];
+                        } else {
+                            idStart = null;
+                        }
                         var OCL = require('views/lib/ocl');
                         var getReference = require('views/lib/getReference').getReference;
                         try {
@@ -112,7 +123,7 @@ module.exports = {
                                 rot: prop.rotatableBondCount,
                                 ste: prop.stereoCenterCount
                             };
-                            emitWithOwner(null, result);
+                            emitWithOwner(idStart, result);
                         } catch (e) {
                         }
                     }
