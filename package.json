@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-     "nmr-metadata": "^1.2.0"
+    "bio-parsers": "^4.1.6",
+    "nmr-metadata": "^1.2.0"
   }
 }
