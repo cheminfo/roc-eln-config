@@ -1,5 +1,5 @@
 module.exports = {
-    defaultEntry: function() {
+    defaultEntry: function () {
         return {
             spectra: {
                 nmr: [],
@@ -17,7 +17,8 @@ module.exports = {
             lib: {
                 getReference: ['./getReference.js', 'app', 'sss', 'stockSSS'],
                 getToc: ['./getToc.js', 'app'],
-                ocl: ['./openchemlib-core.js', 'app', 'sss', 'stockSSS']
+                ocl: ['./openchemlib-core.js', 'app', 'sss', 'stockSSS'],
+                md5: ['./md5.js', 'dna']
             },
             analysisBySampleId: {
                 map: function (doc) {
@@ -44,7 +45,7 @@ module.exports = {
             },
             sampleByUuid: {
                 map: function (doc) {
-                    if(doc.$type === 'entry' && doc.$kind === 'sample') {
+                    if (doc.$type === 'entry' && doc.$kind === 'sample') {
                         emitWithOwner(doc._id, null);
                     }
                 },
@@ -89,12 +90,12 @@ module.exports = {
                 map: function (doc) {
                     if (doc.$kind === 'sample' && doc.$content.general && doc.$content.general.molfile) {
                         var idStart = doc.$id;
-                        if(idStart && idStart.length && typeof idStart === 'object') {
+                        if (idStart && idStart.length && typeof idStart === 'object') {
                             idStart = idStart[0];
                         }
                         var idReg = /^(.*)-/;
                         var m = idReg.exec(idStart);
-                        if(m && m[1]) {
+                        if (m && m[1]) {
                             idStart = m[1];
                         } else {
                             idStart = null;
@@ -211,12 +212,12 @@ module.exports = {
                 map: function (doc) {
                     if (doc.$kind === 'sample' && doc.$content.general && doc.$content.general) {
                         var idStart = doc.$id;
-                        if(idStart && idStart.length && typeof idStart === 'object') {
+                        if (idStart && idStart.length && typeof idStart === 'object') {
                             idStart = idStart[0];
                         }
                         var idReg = /^(.*)-/;
                         var m = idReg.exec(idStart);
-                        if(m && m[1]) {
+                        if (m && m[1]) {
                             idStart = m[1];
                         } else {
                             idStart = null;
@@ -271,7 +272,48 @@ module.exports = {
                 },
                 designDoc: 'analysisRequest'
             },
- 
+            dnaWarnings: {
+                map: function (doc) {
+                    if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
+                    if (!doc.$content.biology || !doc.$content.biology.dna) return;
+                    const dna = doc.$content.biology.dna;
+
+                    for (var i = 0; i < dna.length; i++) {
+                        for (var j = 0; j < dna[i].seq.length; j++) {
+                            var seq = dna[i].seq[j];
+                            for (var k = 0; k < seq.messages.length; k++) {
+                                emit(dna[i].reference, seq.messages[k]);
+                            }
+                        }
+                    }
+                },
+                designDoc: 'dna'
+            },
+
+            dnaFeaturesByName: {
+                map: function (doc) {
+                    if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
+                    if (!doc.$content.biology || !doc.$content.biology.dna) return;
+                    var md5 = require('views/lib/md5');
+                    var dna = doc.$content.biology.dna;
+                    for (var i = 0; i < dna.length; i++) {
+                        for (var j = 0; j < dna[i].seq.length; j++) {
+                            var seq = dna[i].seq[j].parsedSequence;
+                            emit(seq.name, {
+                                name: seq.name,
+                                md5: md5.md5(seq.sequence)
+                            });
+                            for (var k = 0; k < seq.features.length; k++) {
+                                emit(seq.features[k].name, {
+                                    name: seq.features[k].name,
+                                    md5: md5.md5(seq.sequence.slice(seq.features[k].start, seq.features[k].end + 1))
+                                });
+                            }
+                        }
+                    }
+                },
+                designDoc: 'dna'
+            }
         }
     }
 };
