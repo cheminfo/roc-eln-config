@@ -61,10 +61,11 @@ module.exports = {
                     function s(k, obj) {
                         var m = regexp.exec(k);
                         if (m && m[1] && m[2]) {
-                            if (!obj[m[1]]) obj[m[1]] = m[2];
+                            var count = +m[2];
+                            if (!obj[m[1]]) obj[m[1]] = count;
                             else {
-                                if (obj[m[1]] < m[2]) {
-                                    obj[m[1]] = m[2];
+                                if (obj[m[1]] < count) {
+                                    obj[m[1]] = count;
                                 }
                             }
                         }
