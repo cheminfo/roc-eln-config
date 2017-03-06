@@ -21,11 +21,13 @@ module.exports = {
     },
     getOwner(filename) {
         // return the main owner of the entry
-        const user = filename.split('_')[0].toLowerCase();
-        if(userLookupTable[user]) {
-            return [userLookupTable[user], 'dnaRead', 'dnaWrite'];
+        const userInitials = filename.split('_')[0].toLowerCase();
+	const user = userLookupTable[userInitials];
+        if(user && user.owner) {
+	    const groups = user.groups || [];
+            return [user.owner, 'dnaRead', 'dnaWrite', ...groups];
         } else {
-            throw new Error('Unknown user');
+            throw new Error(`Unknown user ${userInitials}`);
         }
     },
     parse(filename, contents) {
