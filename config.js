@@ -211,7 +211,7 @@ module.exports = {
             },
             stockToc: {
                 map: function (doc) {
-                    if (doc.$kind === 'sample' && doc.$content.general && doc.$content.general) {
+                    if (doc.$kind === 'sample' && doc.$content.general && doc.$content.general && doc.$content.stock) {
                         var idStart = doc.$id;
                         if (idStart && idStart.length && typeof idStart === 'object') {
                             idStart = idStart[0];
