@@ -9,6 +9,6 @@
   "private": true,
   "dependencies": {
     "bio-parsers": "^4.1.6",
-    "nmr-metadata": "^1.2.0"
+    "nmr-metadata": "^2.0.0"
   }
 }
