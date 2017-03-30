@@ -209,6 +209,34 @@ module.exports = {
                 },
                 designDoc: 'stock'
             },
+
+            reactionToc: {
+                map: function(doc) {
+                    if(doc.$type !== 'entry' || doc.$kind !== 'reaction') return;
+                    var toSend = {
+                        reference: doc.$id,
+                        reagents: doc.$content.reagents.map(function(r) {
+                            return {
+                                iupac: r.iupac,
+                                ocl: r.ocl,
+                                rn: r.rn
+                            };
+                        }),
+                        products: doc.$content.products.map(function(p) {
+                            return {
+                                ocl: p.ocl
+                            }
+                        }),
+                        date: doc.$content.date,
+                        creationDate: doc.$creationDate,
+                        modificationDate: doc.$modificationDate,
+                        title: doc.$content.title
+                    };
+                    emitWithOwner(doc.$id, toSend);
+                },
+                withOwner: true,
+                designDoc: 'reaction'
+            },
             stockToc: {
                 map: function (doc) {
                     if (doc.$kind === 'sample' && doc.$content.general && doc.$content.stock) {
