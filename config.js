@@ -218,19 +218,14 @@ module.exports = {
                         reagents: doc.$content.reagents.map(function(r) {
                             return {
                                 iupac: r.iupac,
-                                ocl: r.ocl,
                                 rn: r.rn
                             };
-                        }),
-                        products: doc.$content.products.map(function(p) {
-                            return {
-                                ocl: p.ocl
-                            }
                         }),
                         date: doc.$content.date,
                         creationDate: doc.$creationDate,
                         modificationDate: doc.$modificationDate,
-                        title: doc.$content.title
+                        title: doc.$content.title,
+                        rxn: doc.$content.reactionRXN
                     };
                     emitWithOwner(doc.$id, toSend);
                 },
