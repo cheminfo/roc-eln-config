@@ -352,7 +352,7 @@ module.exports = {
                         }
                     }
                     if(toEmit.length) {
-                        emit(null, toEmit);
+                        emitWithOwner(null, toEmit);
                     }
                 },
                 designDoc: 'dna',
