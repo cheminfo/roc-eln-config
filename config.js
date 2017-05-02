@@ -211,11 +211,11 @@ module.exports = {
             },
 
             reactionToc: {
-                map: function(doc) {
-                    if(doc.$type !== 'entry' || doc.$kind !== 'reaction') return;
+                map: function (doc) {
+                    if (doc.$type !== 'entry' || doc.$kind !== 'reaction') return;
                     var toSend = {
                         reference: doc.$id,
-                        reagents: doc.$content.reagents.map(function(r) {
+                        reagents: doc.$content.reagents.map(function (r) {
                             return {
                                 iupac: r.iupac,
                                 rn: r.rn
@@ -311,7 +311,7 @@ module.exports = {
                         }
                     }
 
-                    if(toEmit.length) {
+                    if (toEmit.length) {
                         emit(null, toEmit);
                     }
                 },
@@ -326,23 +326,23 @@ module.exports = {
                     var md5 = require('views/lib/md5');
                     var dna = doc.$content.biology.dna;
                     var toEmit = [];
-		    // iterate over each reference - usually 1 file <--> 1 reference
+                    // iterate over each reference - usually 1 file <--> 1 reference
                     for (var i = 0; i < dna.length; i++) {
                         toEmit.push({
                             ref: dna[i].reference,
                             seq: []
                         });
-			// Iterate over the sequences the genbank file contains - usually just 1
+                        // Iterate over the sequences the genbank file contains - usually just 1
                         for (var j = 0; j < dna[i].seq.length; j++) {
 
                             var seq = dna[i].seq[j].parsedSequence;
                             toEmit[i].seq.push({
-				size: seq.size,
+                                size: seq.size,
                                 name: seq.name,
                                 md5: md5.md5(seq.sequence),
                                 features: []
                             });
-			    // Iterate over the features a genbank file contains
+                            // Iterate over the features a genbank file contains
                             for (var k = 0; k < seq.features.length; k++) {
                                 toEmit[i].seq[j].features.push({
                                     name: seq.features[k].name,
@@ -351,7 +351,42 @@ module.exports = {
                             }
                         }
                     }
-                    if(toEmit.length) {
+                    if (toEmit.length) {
+                        emitWithOwner(null, toEmit);
+                    }
+                },
+                designDoc: 'dna',
+                withOwner: true
+            },
+
+            dnaFeatures: {
+                map: function (doc) {
+                    if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
+                    if (!doc.$content.biology || !doc.$content.biology.dna) return;
+                    var md5 = require('views/lib/md5');
+                    var dna = doc.$content.biology.dna;
+                    var toEmit = [];
+                    // iterate over each reference - usually 1 file <--> 1 reference
+                    for (var i = 0; i < dna.length; i++) {
+                        toEmit.push({
+                            ref: dna[i].reference,
+                            features: []
+                        });
+                        // Iterate over the sequences the genbank file contains - usually just 1
+                        for (var j = 0; j < dna[i].seq.length; j++) {
+                            var seq = dna[i].seq[j].parsedSequence;
+                            // Iterate over the features a genbank file contains
+                            for (var k = 0; k < seq.features.length; k++) {
+                                var sequence = seq.sequence.slice(seq.features[k].start, seq.features[k].end + 1);
+                                toEmit[i].features.push({
+                                    name: seq.features[k].name,
+                                    md5: md5.md5(sequence),
+                                    seq: sequence
+                                });
+                            }
+                        }
+                    }
+                    if (toEmit.length) {
                         emitWithOwner(null, toEmit);
                     }
                 },
