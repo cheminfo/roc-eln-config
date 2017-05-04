@@ -392,6 +392,40 @@ module.exports = {
                 },
                 designDoc: 'dna',
                 withOwner: true
+            },
+
+            dnaSequences: {
+                // Same as dnaSeqAndFeatures but without the features, only
+                map: function (doc) {
+                    if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
+                    if (!doc.$content.biology || !doc.$content.biology.dna) return;
+                    var md5 = require('views/lib/md5');
+                    var dna = doc.$content.biology.dna;
+                    var toEmit = [];
+                    // iterate over each reference - usually 1 file <--> 1 reference
+                    for (var i = 0; i < dna.length; i++) {
+                        toEmit.push({
+                            ref: dna[i].reference,
+                            seq: []
+                        });
+                        // Iterate over the sequences the genbank file contains - usually just 1
+                        for (var j = 0; j < dna[i].seq.length; j++) {
+
+                            var seq = dna[i].seq[j].parsedSequence;
+                            toEmit[i].seq.push({
+                                size: seq.size,
+                                name: seq.name,
+                                md5: md5.md5(seq.sequence),
+                                seq: seq.sequence
+                            });
+                        }
+                    }
+                    if (toEmit.length) {
+                        emitWithOwner(null, toEmit);
+                    }
+                },
+                designDoc: 'dna',
+                withOwner: true
             }
         }
     }
