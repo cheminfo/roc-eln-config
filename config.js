@@ -319,7 +319,7 @@ module.exports = {
                 withOwner: true
             },
 
-            dnaFeaturesByName: {
+            dnaMd5: {
                 map: function (doc) {
                     if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
                     if (!doc.$content.biology || !doc.$content.biology.dna) return;
