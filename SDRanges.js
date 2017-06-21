@@ -846,14 +846,39 @@
 
             function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+            function _extendableBuiltin(cls) {
+                function ExtendableBuiltin() {
+                    var instance = Reflect.construct(cls, Array.from(arguments));
+                    Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
+                    return instance;
+                }
+
+                ExtendableBuiltin.prototype = Object.create(cls.prototype, {
+                    constructor: {
+                        value: cls,
+                        enumerable: false,
+                        writable: true,
+                        configurable: true
+                    }
+                });
+
+                if (Object.setPrototypeOf) {
+                    Object.setPrototypeOf(ExtendableBuiltin, cls);
+                } else {
+                    ExtendableBuiltin.__proto__ = cls;
+                }
+
+                return ExtendableBuiltin;
+            }
+
             var acs = __webpack_require__(6);
             var peak2Vector = __webpack_require__(8);
             var GUI = __webpack_require__(0);
             var utils = __webpack_require__(2);
             var arrayUtils = __webpack_require__(4).array;
 
-            var Ranges = function (_Array) {
-                _inherits(Ranges, _Array);
+            var Ranges = function (_extendableBuiltin2) {
+                _inherits(Ranges, _extendableBuiltin2);
 
                 function Ranges(ranges) {
                     _classCallCheck(this, Ranges);
@@ -1122,7 +1147,7 @@
                 }]);
 
                 return Ranges;
-            }(Array);
+            }(_extendableBuiltin(Array));
 
             module.exports = Ranges;
 
