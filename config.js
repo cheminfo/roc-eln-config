@@ -17,7 +17,9 @@ module.exports = {
             lib: {
                 getReference: ['./getReference.js', 'app', 'sss', 'stockSSS'],
                 getToc: ['./getToc.js', 'app'],
-                ocl: ['./openchemlib-core.js', 'app', 'sss', 'stockSSS'],
+                SDRanges: ['./SDRanges.js', 'nmr'],
+                nmr: ['./nmr.js', 'nmr'],
+                ocl: ['./openchemlib-core.js', 'app', 'sss', 'stockSSS', 'nmr'],
                 md5: ['./md5.js', 'dna']
             },
             analysisBySampleId: {
@@ -425,6 +427,18 @@ module.exports = {
                     }
                 },
                 designDoc: 'dna',
+                withOwner: true
+            },
+
+            nmrIndex: {
+                map: function(doc) {
+                    var nmr = require('views/lib/nmr');
+                    const nmrIndexes = nmr.getIndexes(doc);
+                    for(var i=0; i<nmrIndexes.length; i++) {
+                        emitWithOwner(null, nmrIndexes[i])
+                    }
+                },
+                designDoc: 'nmr',
                 withOwner: true
             }
         }
