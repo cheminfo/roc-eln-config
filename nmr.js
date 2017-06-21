@@ -1,4 +1,6 @@
 exports.getIndexes = function(doc) {
+    if(doc.$type !== 'entry' || doc.$kind !== 'sample') return;
+    if (!doc.$content.spectra || !doc.$content.spectra.nmr) return;
     var SDRanges = require('views/lib/SDRanges');
     var OCL = require('views/lib/OCL');
     var nmr = doc.$content.spectra.nmr.filter((nmr) => (nmr.dimension === 1 && nmr.nucleus[0] === '1H'))
