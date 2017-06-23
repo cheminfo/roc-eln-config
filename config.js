@@ -15,11 +15,11 @@ module.exports = {
         version: 40,
         views: {
             lib: {
-                getReference: ['./getReference.js', 'app', 'sss', 'stockSSS'],
-                getToc: ['./getToc.js', 'app'],
+                getReference: ['./getReference.js', 'customApp', 'sss', 'stockSSS'],
+                getToc: ['./getToc.js', 'customApp'],
                 SDRanges: ['./SDRanges.js', 'nmr'],
                 nmr: ['./nmr.js', 'nmr'],
-                ocl: ['./openchemlib-core.js', 'app', 'sss', 'stockSSS', 'nmr'],
+                ocl: ['./openchemlib-core.js', 'customApp', 'sss', 'stockSSS', 'nmr'],
                 md5: ['./md5.js', 'dna']
             },
             analysisBySampleId: {
