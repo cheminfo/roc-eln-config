@@ -12,7 +12,6 @@ module.exports = {
         };
     },
     customDesign: {
-        version: 40,
         views: {
             lib: {
                 getReference: ['./getReference.js', 'customApp', 'sss', 'stockSSS'],
@@ -32,6 +31,13 @@ module.exports = {
                         }
                     }
                 }
+            },
+            sampleById: {
+                map: function (doc) {
+                    if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
+                    emitWithOwner(doc.$id, null);
+                },
+                withOwner: true
             },
             sample_toc: {
                 map: function (doc) {
