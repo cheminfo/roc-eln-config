@@ -7,9 +7,9 @@ exports.getIndexes = function (doc) {
         return nmr.dimension === 1 && nmr.nucleus[0] === '1H'
     });
     var toEmit = [];
-    for (let j = 0; j < nmr.length; j++) {
-        let general = doc.$content.general || {};
-        let entry = {
+    for (var j = 0; j < nmr.length; j++) {
+        var general = doc.$content.general || {};
+        var entry = {
             description: general.description,
             mf: general.mf,
             id: String(doc.$id[0]),
@@ -47,10 +47,10 @@ function toIndex(ranges, options) {
     for (var i = 0; i < ranges.length; i++) {
         var range = ranges[i];
         if (Array.isArray(range.signal) && range.signal.length > 0) {
-            let l = range.signal.length;
+            var l = range.signal.length;
             var delta = new Array(l);
-            for (let i = 0; i < l; i++) {
-                delta[i] = range.signal[i].delta;
+            for (var k = 0; k < l; k++) {
+                delta[k] = range.signal[k].delta;
             }
             index.push({
                 multiplicity: (l > 1) ? 'm' : (range.signal[0].multiplicity ||
@@ -91,7 +91,7 @@ function joinCoupling(signal, tolerance) {
                 diaIDs.push(jc[i].diaID);
                 atoms = atoms.concat(jc[i + 1].assignment);
             } else {
-                let jTemp = {
+                var jTemp = {
                     coupling: Math.abs(jc[i].coupling),
                     multiplicity: patterns[cont]
                 };
@@ -112,7 +112,7 @@ function joinCoupling(signal, tolerance) {
                 cont = jc[i + 1].assignment ? jc[i + 1].assignment.length : 1;
             }
         }
-        let jTemp = {
+        var jTemp = {
             coupling: Math.abs(jc[i].coupling),
             multiplicity: patterns[cont]
         };
