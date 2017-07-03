@@ -3,7 +3,9 @@
 exports.getIndexes = function (doc) {
     if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
     if (!doc.$content.spectra || !doc.$content.spectra.nmr) return;
-    var nmr = doc.$content.spectra.nmr.filter((nmr) => (nmr.dimension === 1 && nmr.nucleus[0] === '1H'));
+    var nmr = doc.$content.spectra.nmr.filter(function(nmr) {
+        return nmr.dimension === 1 && nmr.nucleus[0] === '1H'
+    });
     var toEmit = [];
     for (let j = 0; j < nmr.length; j++) {
         let general = doc.$content.general || {};
