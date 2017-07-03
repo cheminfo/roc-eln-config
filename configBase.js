@@ -18,7 +18,7 @@ module.exports = {
                 getToc: ['./getToc.js', 'customApp'],
                 SDRanges: ['./SDRanges.js', 'nmr'],
                 nmr: ['./nmr.js', 'nmr'],
-                ocl: ['./openchemlib-core.js', 'customApp', 'sss', 'stockSSS', 'nmr'],
+                ocl: ['./openchemlib-core.js', 'customApp', 'sss', 'stockSSS'],
                 md5: ['./md5.js', 'dna']
             },
             analysisBySampleId: {
