@@ -16,7 +16,6 @@ module.exports = {
             lib: {
                 getReference: ['./getReference.js', 'customApp', 'sss', 'stockSSS'],
                 getToc: ['./getToc.js', 'customApp'],
-                SDRanges: ['./SDRanges.js', 'nmr'],
                 nmr: ['./nmr.js', 'nmr'],
                 ocl: ['./openchemlib-core.js', 'customApp', 'sss', 'stockSSS'],
                 md5: ['./md5.js', 'dna']
