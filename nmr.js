@@ -65,6 +65,7 @@ function toIndex(ranges, options) {
             });
         }
     }
+    return index;
 };
 
 function joinCoupling(signal, tolerance) {
