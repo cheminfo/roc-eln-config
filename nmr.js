@@ -14,7 +14,7 @@ exports.getIndexes = function (doc) {
             mf: general.mf,
             id: String(doc.$id[0]),
             index: toIndex(nmr[j].range),
-            jcamp: nmr[j].jcamp.dUrl,
+            jcamp: nmr[j].jcamp ? nmr[j].jcamp.filename : null
         };
 
         var oclid = '';
