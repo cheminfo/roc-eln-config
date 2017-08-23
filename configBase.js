@@ -31,6 +31,13 @@ module.exports = {
                     }
                 }
             },
+            entryByIdWithOwner: {
+                map: function (doc) {
+                    if (doc.$type !== 'entry') return;
+                    emitWithOwner(doc.$id, null);
+                },
+                withOwner: true
+            },
             sampleById: {
                 map: function (doc) {
                     if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
