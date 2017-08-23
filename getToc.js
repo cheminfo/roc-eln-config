@@ -35,7 +35,8 @@ exports.getToc = function(doc) {
         nb1d: nb1d,
         nb2d: nb2d,
         oclid: oclid,
-        modificationDate: doc.$modificationDate
+        modificationDate: doc.$modificationDate,
+        keyword: general.keyword
     };
 };
 
