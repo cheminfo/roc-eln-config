@@ -29,7 +29,17 @@ module.exports = {
                             emit(doc.$content.samples[i]);
                         }
                     }
-                }
+                },
+                designDoc: 'analysis'
+            },
+            analysisBySampleAndId: {
+                map: function (doc) {
+                    if (doc.$kind !== 'analysis') return;
+                    if (doc.$type !== 'entry') return;
+                    emitWithOwner(doc.$id);
+                },
+                withOwner: true,
+                designDoc: 'analysis'
             },
             entryByIdWithOwner: {
                 map: function (doc) {
