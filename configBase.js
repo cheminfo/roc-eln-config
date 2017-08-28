@@ -36,7 +36,8 @@ module.exports = {
                 map: function (doc) {
                     if (doc.$kind !== 'analysis') return;
                     if (doc.$type !== 'entry') return;
-                    emitWithOwner(doc.$id);
+                    var len = doc.$id.length - 1;
+                    emitWithOwner([doc.$id[0], doc.$id[len]]);
                 },
                 withOwner: true,
                 designDoc: 'analysis'
