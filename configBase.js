@@ -32,12 +32,11 @@ module.exports = {
                 },
                 designDoc: 'analysis'
             },
-            analysisBySampleAndId: {
+            analysisById: {
                 map: function (doc) {
                     if (doc.$kind !== 'analysis') return;
                     if (doc.$type !== 'entry') return;
-                    var len = doc.$id.length - 1;
-                    emitWithOwner([doc.$id[0], doc.$id[len]]);
+                    emitWithOwner(doc.$id);
                 },
                 withOwner: true,
                 designDoc: 'analysis'
