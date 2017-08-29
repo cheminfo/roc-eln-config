@@ -54,7 +54,7 @@ function toIndex(ranges, options) {
             }
             index.push({
                 multiplicity: (l > 1) ? 'm' : (range.signal[0].multiplicity ||
-                utils.joinCoupling(range.signal[0], options.tolerance)),
+                joinCoupling(range.signal[0], options.tolerance)),
                 delta: arithmeticMean(delta) || (range.to + range.from) * 0.5,
                 integral: range.integral
             });
