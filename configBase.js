@@ -141,7 +141,7 @@ module.exports = {
                             result.em = mf.absoluteWeight;
                             result.mw = mf.relativeWeight;
                             result.index = mol.getIndex();
-                            var prop = mol.getProperties();
+                            var prop = new OCL.MoleculeProperties(mol);
                             result.properties = {
                                 acc: prop.acceptorCount,
                                 don: prop.donorCount,
