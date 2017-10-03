@@ -21,7 +21,7 @@ customViews.reagentSSS = {
             return;
         }
 
-        function substructureSearch(molfile) {
+        function createSubstructureIndex(molfile) {
             var OCL = require('views/lib/ocl');
             var getReference = require('views/lib/getReference').getReference;
 
@@ -44,7 +44,7 @@ customViews.reagentSSS = {
         var result = parseRXN(rxn);
         var reagents = result.reagents;
         for (var i = 0; i < reagents.length; ++i) {
-            emitWithOwner(doc._id, substructureSearch(reagents[i]));
+            emitWithOwner(doc._id, createSubstructureIndex(reagents[i]));
         }
     },
     reduce: '_count',
@@ -58,7 +58,7 @@ customViews.productSSS = {
             return;
         }
 
-        function substructureSearch(molfile) {
+        function createSubstructureIndex(molfile) {
             var OCL = require('views/lib/ocl');
             var getReference = require('views/lib/getReference').getReference;
 
@@ -81,7 +81,7 @@ customViews.productSSS = {
         var result = parseRXN(rxn);
         var products = result.products;
         for (var i = 0; i < products.length; ++i) {
-            emitWithOwner(doc._id, substructureSearch(products[i]));
+            emitWithOwner(doc._id, createSubstructureIndex(products[i]));
         }
     },
     reduce: '_count',
