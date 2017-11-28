@@ -259,7 +259,7 @@ module.exports = {
                 designDoc: 'reaction'
             },
             stockToc: {
-                map: function (doc) {
+                map: function test(doc) {
                     if (doc.$kind === 'sample' && doc.$content.general && doc.$content.stock) {
                         var general = doc.$content.general;
                         var stock = doc.$content.stock;
@@ -307,6 +307,7 @@ module.exports = {
                                 status: last.status
                             };
                         }
+                        emitWithOwner(idStart, result);
                     }
                 },
                 withOwner: true,
