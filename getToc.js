@@ -16,17 +16,12 @@ exports.getToc = function(doc) {
         }
     }
 
-    var oclid = '';
-    if (doc.$content.general && doc.$content.general.molfile) {
-        var OCL = require('views/lib/ocl');
-        try {
-            oclid = OCL.Molecule.fromMolfile(doc.$content.general.molfile).getIDCode();
-        } catch (e) {}
-    }
-
     return {
         mf: general.mf,
         mw: general.mw,
+        oclid: general.ocl && general.ocl.value,
+        index: general.ocl && general.ocl.index,
+        keyword: general.keyword,        
         hasNmr: nmr && nmr.length,
         hasIR: ir && ir.length,
         hasMass: mass && mass.length,
@@ -34,9 +29,7 @@ exports.getToc = function(doc) {
         has2d: has2d,
         nb1d: nb1d,
         nb2d: nb2d,
-        oclid: oclid,
-        modificationDate: doc.$modificationDate,
-        keyword: general.keyword
+        modificationDate: doc.$modificationDate
     };
 };
 

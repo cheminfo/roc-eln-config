@@ -261,6 +261,9 @@ module.exports = {
             stockToc: {
                 map: function (doc) {
                     if (doc.$kind === 'sample' && doc.$content.general && doc.$content.stock) {
+                        var general = doc.$content.general;
+                        var stock = doc.$content.stock;
+                        var identifier = doc.$content.identifier;
                         var idStart = doc.$id;
                         if (idStart && idStart.length && typeof idStart === 'object') {
                             idStart = idStart[0];
@@ -273,42 +276,36 @@ module.exports = {
                             idStart = null;
                         }
 
-                        var OCL = require('views/lib/ocl');
                         var getReference = require('views/lib/getReference').getReference;
-                        try {
-                            var mol = OCL.Molecule.fromMolfile(doc.$content.general.molfile);
-                            var result = {
-                                reference: getReference(doc)
-                            };
-                            result.idcode = mol.getIDCodeAndCoordinates();
-                            var mf = mol.getMolecularFormula();
-                            result.mf = mf.formula;
-                            result.mw = mf.relativeWeight;
-                            result.index = mol.getIndex();
-                            if (doc.$content.identifier && doc.$content.identifier.cas && doc.$content.identifier.cas.length) {
-                                var cas = doc.$content.identifier.cas;
-                                var c;
-                                for (var i = 0; i < cas.length; i++) {
-                                    if (cas[i].preferred) {
-                                        c = cas[i];
-                                        break;
-                                    }
+
+                        var result = {
+                            reference: getReference(doc),
+                            idcode: general.ocl && general.ocl.value,
+                            index: general.ocl && general.ocl.index,
+                            mf: general.mf,
+                            mw: general.mw
+                        };
+                        if (identifier && identifier.cas && identifier.cas.length) {
+                            var cas = identifier.cas;
+                            var c;
+                            for (var i = 0; i < cas.length; i++) {
+                                if (cas[i].preferred) {
+                                    c = cas[i];
+                                    break;
                                 }
-                                if (!c) c = cas[0];
-                                result.cas = c.value;
                             }
-                            result.name = doc.$content.general.name || [];
-                            if (doc.$content.stock && doc.$content.stock.history && doc.$content.stock.history.length) {
-                                var history = doc.$content.stock.history;
-                                var last = history[0];
-                                result.last = {
-                                    loc: last.location,
-                                    date: last.date,
-                                    status: last.status
-                                };
-                            }
-                            emitWithOwner(idStart, result);
-                        } catch (e) {
+                            if (!c) c = cas[0];
+                            result.cas = c.value;
+                        }
+                        result.name = general.name || [];
+                        if (stock && stock.history && stock.history.length) {
+                            var history = doc.$content.stock.history;
+                            var last = history[0];
+                            result.last = {
+                                loc: last.location,
+                                date: last.date,
+                                status: last.status
+                            };
                         }
                     }
                 },
