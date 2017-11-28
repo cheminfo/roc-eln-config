@@ -280,7 +280,10 @@ module.exports = {
 
                         var result = {
                             reference: getReference(doc),
-                            idcode: general.ocl && general.ocl.value,
+                            idcode: general.ocl && {
+                                idCode: general.ocl.value,
+                                coordinates: general.ocl.coordinates
+                            },
                             index: general.ocl && general.ocl.index,
                             mf: general.mf,
                             mw: general.mw
