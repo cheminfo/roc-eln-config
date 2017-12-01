@@ -17,7 +17,8 @@ async function updateDB() {
 
     console.log(`updated ${count} samples`);
     count = 0;
-    const reactions = await getAllReactions();
+    let reactions = await getAllReactions();
+    reactions = reactions.body.rows;
     for (let i=0; i<samples.length; i++) {
         await updateReaction(samples[i].doc);
         count++;
