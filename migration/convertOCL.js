@@ -11,10 +11,18 @@ async function updateDB() {
     samples = samples.body.rows;
     let count = 0;
     for(let i=0; i<samples.length; i++) {
-          await update(samples[i].doc);
+          await updateSample(samples[i].doc);
           count++;
     }
-    console.log('count', count);
+
+    console.log(`updated ${count} samples`);
+    count = 0;
+    const reactions = await getAllReactions();
+    for (let i=0; i<samples.length; i++) {
+        await updateReaction(samples[i].doc);
+        count++;
+    }
+    console.log(`updated ${count} reactions`);
 }
 
 function getAllSamples() {
@@ -25,7 +33,7 @@ function getAllReactions() {
     return superagent.get(`http://admin:${password}@${host}/${db}/_design/app/_view/entryByKind?key="reaction"&reduce=false&include_docs=true`);    
 }
 
-function update(entry) {
+function updateSample(entry) {
     const mol = OCL.Molecule.fromMolfile(entry.$content.general.molfile);
     const oclid = mol.getIDCodeAndCoordinates();
     entry.$content.general.ocl = {
@@ -33,7 +41,33 @@ function update(entry) {
         coordinates: oclid.coordinates,
         index: mol.getIndex()
     };
-    console.log(entry._id);
+
+    return superagent.put(`http://admin:${password}@${host}/${db}/${entry._id}`)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .send(entry);
+}
+
+function updateReaction(entry) {
+    const reagents = entry.$content.reagents;
+    const products = entry.$content.products;
+
+    for(let reagent of reagents) {
+        setIndex(reagent);
+    }
+    for(let product of products) {
+        setIndex(product);
+    }
+    function setIndex(el) {
+        const idCode = el.ocl.idCode;
+        const coordinates = el.coordinates;
+        const mol = OCL.Molecule.fromIDCode(idCode);        
+        el.ocl = {
+            value: idCode,
+            coordinates,
+            index: mol.getIndex()
+        }
+    }
     return superagent.put(`http://admin:${password}@${host}/${db}/${entry._id}`)
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
