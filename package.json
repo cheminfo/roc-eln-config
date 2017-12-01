@@ -9,6 +9,8 @@
   "private": true,
   "dependencies": {
     "bio-parsers": "^4.1.6",
-    "nmr-metadata": "^2.0.1"
+    "nmr-metadata": "^2.0.1",
+    "openchemlib": "^5.5.0",
+    "superagent": "^3.8.1"
   }
 }
