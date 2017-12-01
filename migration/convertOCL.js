@@ -8,7 +8,11 @@ updateDB().then(() => console.log('success')).catch((e) =>  console.log('update 
 
 async function updateDB() {
     let samples = await getAllSamples();
-    samples = samples.body.rows;
+    samples = JSON.parse(samples.text).rows;
+    let reactions = await getAllReactions();
+    reactions = JSON.parse(reactions.text).rows;
+
+    console.log(samples.length, reactions.length);
     let count = 0;
     for(let i=0; i<samples.length; i++) {
           await updateSample(samples[i].doc);
@@ -17,7 +21,6 @@ async function updateDB() {
 
     console.log(`updated ${count} samples`);
     count = 0;
-    let reactions = await getAllReactions();
     reactions = reactions.body.rows;
     for (let i=0; i<samples.length; i++) {
         await updateReaction(samples[i].doc);
