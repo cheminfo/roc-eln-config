@@ -14,16 +14,15 @@ async function updateDB() {
 
     console.log(samples.length, reactions.length);
     let count = 0;
-    for(let i=0; i<samples.length; i++) {
-          await updateSample(samples[i].doc);
-          count++;
-    }
+    //for(let i=0; i<samples.length; i++) {
+    //     await updateSample(samples[i].doc);
+    //      count++;
+    //}
 
     console.log(`updated ${count} samples`);
     count = 0;
-    reactions = reactions.body.rows;
-    for (let i=0; i<samples.length; i++) {
-        await updateReaction(samples[i].doc);
+    for (let i=0; i<reactions.length; i++) {
+        await updateReaction(reactions[i].doc);
         count++;
     }
     console.log(`updated ${count} reactions`);
@@ -38,7 +37,12 @@ function getAllReactions() {
 }
 
 function updateSample(entry) {
-    const mol = OCL.Molecule.fromMolfile(entry.$content.general.molfile);
+    console.log(entry._id);
+    const general = entry.$content.general;
+    if(!general) return;
+    const molfile = general.molfile;
+    if(!molfile) return;
+    const mol = OCL.Molecule.fromMolfile(molfile);
     const oclid = mol.getIDCodeAndCoordinates();
     entry.$content.general.ocl = {
         value: oclid.idCode,
@@ -53,6 +57,7 @@ function updateSample(entry) {
 }
 
 function updateReaction(entry) {
+    console.log(entry._id);
     const reagents = entry.$content.reagents;
     const products = entry.$content.products;
 
@@ -63,8 +68,9 @@ function updateReaction(entry) {
         setIndex(product);
     }
     function setIndex(el) {
+        if(!el.ocl) return;
         const idCode = el.ocl.idCode;
-        const coordinates = el.coordinates;
+        const coordinates = el.ocl.coordinates;
         const mol = OCL.Molecule.fromIDCode(idCode);        
         el.ocl = {
             value: idCode,
