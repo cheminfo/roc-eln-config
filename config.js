@@ -20,31 +20,19 @@ customViews.reagentSSS = {
         if(doc.$type !== 'entry' || doc.$kind !== 'reaction') {
             return;
         }
-
-        function createSubstructureIndex(molfile) {
-            var OCL = require('views/lib/ocl');
-            var getReference = require('views/lib/getReference').getReference;
-
-            var mol = OCL.Molecule.fromMolfile(molfile);
-            if (mol.getAllAtoms() === 0) return;
+        var getReference = require('views/lib/getReference').getReference;        
+        var reference = getReference(doc);
+        var reagents = doc.$content.reagents;
+        for(var i = 0; i < reagents.length; i++) {
+            var r = reagents[i];
             var result = {
-                reference: getReference(doc)
-            };
-            result.ocl = mol.getIDCodeAndCoordinates();
-            var mf = mol.getMolecularFormula();
-            result.mf = mf.formula;
-            result.em = mf.absoluteWeight;
-            result.mw = mf.relativeWeight;
-            result.index = mol.getIndex();
-            return result;
-        }
-
-        var parseRXN = require('views/lib/rxnParse');
-        var rxn = doc.$content.reactionRXN;
-        var result = parseRXN(rxn);
-        var reagents = result.reagents;
-        for (var i = 0; i < reagents.length; ++i) {
-            emitWithOwner(doc._id, createSubstructureIndex(reagents[i]));
+                reference: reference,
+                ocl: r.ocl,
+                mf: r.mf,
+                em: r.em,
+                mw: r.mw,
+            }
+            emitWithOwner(doc._id, result);
         }
     },
     reduce: '_count',
@@ -57,31 +45,19 @@ customViews.productSSS = {
         if(doc.$type !== 'entry' || doc.$kind !== 'reaction') {
             return;
         }
-
-        function createSubstructureIndex(molfile) {
-            var OCL = require('views/lib/ocl');
-            var getReference = require('views/lib/getReference').getReference;
-
-            var mol = OCL.Molecule.fromMolfile(molfile);
-            if (mol.getAllAtoms() === 0) return;
+        var getReference = require('views/lib/getReference').getReference;        
+        var reference = getReference(doc);
+        var products = doc.$content.products;
+        for(var i = 0; i < products.length; i++) {
+            var p = products[i];
             var result = {
-                reference: getReference(doc)
-            };
-            result.ocl = mol.getIDCodeAndCoordinates();
-            var mf = mol.getMolecularFormula();
-            result.mf = mf.formula;
-            result.em = mf.absoluteWeight;
-            result.mw = mf.relativeWeight;
-            result.index = mol.getIndex();
-            return result;
-        }
-
-        var parseRXN = require('views/lib/rxnParse');
-        var rxn = doc.$content.reactionRXN;
-        var result = parseRXN(rxn);
-        var products = result.products;
-        for (var i = 0; i < products.length; ++i) {
-            emitWithOwner(doc._id, createSubstructureIndex(products[i]));
+                reference: reference,
+                ocl: p.ocl,
+                mf: p.mf,
+                em: p.em,
+                mw: p.mw,
+            }
+            emitWithOwner(doc._id, result);
         }
     },
     reduce: '_count',

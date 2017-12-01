@@ -116,6 +116,7 @@ module.exports = {
             substructureSearch: {
                 map: function (doc) {
                     if (doc.$kind === 'sample' && doc.$content.general && doc.$content.general.molfile) {
+                        var general = doc.$content.general || {};
                         var idStart = doc.$id;
                         if (idStart && idStart.length && typeof idStart === 'object') {
                             idStart = idStart[0];
@@ -128,33 +129,15 @@ module.exports = {
                             idStart = null;
                         }
 
-                        var OCL = require('views/lib/ocl');
                         var getReference = require('views/lib/getReference').getReference;
-                        try {
-                            var mol = OCL.Molecule.fromMolfile(doc.$content.general.molfile);
-                            if (mol.getAllAtoms() === 0) return;
-                            var result = {
-                                reference: getReference(doc)
-                            };
-                            result.idcode = mol.getIDCodeAndCoordinates();
-                            var mf = mol.getMolecularFormula();
-                            result.mf = mf.formula;
-                            result.em = mf.absoluteWeight;
-                            result.mw = mf.relativeWeight;
-                            result.index = mol.getIndex();
-                            var prop = new OCL.MoleculeProperties(mol);
-                            result.properties = {
-                                acc: prop.acceptorCount,
-                                don: prop.donorCount,
-                                logp: prop.logP,
-                                logs: prop.logS,
-                                psa: prop.polarSurfaceArea,
-                                rot: prop.rotatableBondCount,
-                                ste: prop.stereoCenterCount
-                            };
-                            emitWithOwner(idStart, result);
-                        } catch (e) {
-                        }
+                        var reference = getReference(doc);
+                        emitWithOwner(idStart, {
+                            reference: getReference(doc),
+                            mf: general.mf,
+                            em: general.em,
+                            mw: general.mw,
+                            ocl: general.ocl,
+                        });
                     }
                 },
                 withOwner: true,
@@ -280,11 +263,7 @@ module.exports = {
 
                         var result = {
                             reference: getReference(doc),
-                            idcode: general.ocl && {
-                                idCode: general.ocl.value,
-                                coordinates: general.ocl.coordinates
-                            },
-                            index: general.ocl && general.ocl.index,
+                            ocl: general.ocl,
                             mf: general.mf,
                             mw: general.mw
                         };

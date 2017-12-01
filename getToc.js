@@ -19,8 +19,11 @@ exports.getToc = function(doc) {
     return {
         mf: general.mf,
         mw: general.mw,
-        oclid: general.ocl && general.ocl.value,
-        index: general.ocl && general.ocl.index,
+        // We don't need the index
+        ocl: general.ocl && {
+            value: general.ocl.value,
+            coordinates: general.ocl.coordinates
+        },
         keyword: general.keyword,        
         hasNmr: nmr && nmr.length,
         hasIR: ir && ir.length,
