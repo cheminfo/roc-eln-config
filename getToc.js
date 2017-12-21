@@ -1,4 +1,3 @@
-
 exports.getToc = function(doc) {
     var content = doc.$content;
     var general = content.general || {};
