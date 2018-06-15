@@ -251,7 +251,8 @@ module.exports = {
             creationDate: doc.$creationDate,
             modificationDate: doc.$modificationDate,
             title: doc.$content.title,
-            rxn: doc.$content.reactionRXN
+            rxn: doc.$content.reactionRXN,
+            status: doc.$content.status && doc.$content.status[0]
           };
           emitWithOwner(doc.$id, toSend);
         },
