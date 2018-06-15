@@ -323,35 +323,13 @@ module.exports = {
         },
         designDoc: 'analysisRequest'
       },
-      dnaWarnings: {
-        map: function(doc) {
-          if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
-          if (!doc.$content.biology || !doc.$content.biology.dna) return;
-          var dna = doc.$content.biology.dna;
-          var toEmit = [];
-          for (var i = 0; i < dna.length; i++) {
-            for (var j = 0; j < dna[i].seq.length; j++) {
-              var seq = dna[i].seq[j];
-              for (var k = 0; k < seq.messages.length; k++) {
-                emit(dna[i].reference, seq.messages[k]);
-              }
-            }
-          }
-
-          if (toEmit.length) {
-            emit(null, toEmit);
-          }
-        },
-        designDoc: 'dna',
-        withOwner: true
-      },
 
       dnaMd5: {
         map: function(doc) {
           if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
-          if (!doc.$content.biology || !doc.$content.biology.dna) return;
+          if (!doc.$content.biology || !doc.$content.biology.nucleic) return;
           var md5 = require('views/lib/md5');
-          var dna = doc.$content.biology.dna;
+          var dna = doc.$content.biology.nucleic;
           var toEmit = [];
           // iterate over each reference - usually 1 file <--> 1 reference
           for (var i = 0; i < dna.length; i++) {
@@ -361,7 +339,7 @@ module.exports = {
             });
             // Iterate over the sequences the genbank file contains - usually just 1
             for (var j = 0; j < dna[i].seq.length; j++) {
-              var seq = dna[i].seq[j].parsedSequence;
+              var seq = dna[i].seq[j];
               toEmit[i].seq.push({
                 size: seq.size,
                 name: seq.name,
@@ -393,9 +371,9 @@ module.exports = {
       dnaFeatures: {
         map: function(doc) {
           if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
-          if (!doc.$content.biology || !doc.$content.biology.dna) return;
+          if (!doc.$content.biology || !doc.$content.biology.nucleic) return;
           var md5 = require('views/lib/md5');
-          var dna = doc.$content.biology.dna;
+          var dna = doc.$content.biology.nucleic;
           var toEmit = [];
           // iterate over each reference - usually 1 file <--> 1 reference
           for (var i = 0; i < dna.length; i++) {
@@ -405,7 +383,7 @@ module.exports = {
             });
             // Iterate over the sequences the genbank file contains - usually just 1
             for (var j = 0; j < dna[i].seq.length; j++) {
-              var seq = dna[i].seq[j].parsedSequence;
+              var seq = dna[i].seq[j];
               // Iterate over the features a genbank file contains
               for (var k = 0; k < seq.features.length; k++) {
                 var sequence = seq.sequence.slice(
@@ -429,12 +407,11 @@ module.exports = {
       },
 
       dnaSequences: {
-        // Same as dnaSeqAndFeatures but without the features, only
         map: function(doc) {
           if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
-          if (!doc.$content.biology || !doc.$content.biology.dna) return;
+          if (!doc.$content.biology || !doc.$content.biology.nucleic) return;
           var md5 = require('views/lib/md5');
-          var dna = doc.$content.biology.dna;
+          var dna = doc.$content.biology.nucleic;
           var toEmit = [];
           // iterate over each reference - usually 1 file <--> 1 reference
           for (var i = 0; i < dna.length; i++) {
@@ -444,7 +421,7 @@ module.exports = {
             });
             // Iterate over the sequences the genbank file contains - usually just 1
             for (var j = 0; j < dna[i].seq.length; j++) {
-              var seq = dna[i].seq[j].parsedSequence;
+              var seq = dna[i].seq[j];
               toEmit[i].seq.push({
                 size: seq.size,
                 name: seq.name,
