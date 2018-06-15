@@ -54,7 +54,7 @@ exports.getToc = function(doc) {
     nb1h: nb1h,
     nb13c: nb13c,
     modificationDate: doc.$modificationDate,
-    b64ShortId: hexToBase64(document._id.substring(0, 12))
+    b64ShortId: hexToBase64(doc._id.substring(0, 12))
   };
 };
 
