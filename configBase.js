@@ -238,7 +238,13 @@ module.exports = {
 
       reactionToc: {
         map: function(doc) {
-          if (doc.$type !== 'entry' || doc.$kind !== 'reaction') return;
+            var overview;
+            if (doc.$type !== 'entry' || doc.$kind !== 'reaction') return;
+
+            if (doc._attachments && doc._attachments['overview.png']) {
+               overview='overview.png'; 
+            }
+
           var toSend = {
             reference: doc.$id,
             reagents: doc.$content.reagents.map(function(r) {
@@ -252,7 +258,8 @@ module.exports = {
             modificationDate: doc.$modificationDate,
             title: doc.$content.title,
             rxn: doc.$content.reactionRXN,
-            status: doc.$content.status && doc.$content.status[0]
+            status: doc.$content.status && doc.$content.status[0],
+            overview: overview
           };
           emitWithOwner(doc.$id, toSend);
         },
