@@ -1,4 +1,9 @@
 # roc-eln-config
+
 rest-on-couch configuration for eln
 
-Place it in /usr/local/rest-on-couch/DATABASE/config.js
+## :warning: This configuration is compatible with rest-on-couch >= v5.7.0
+
+## Instructions
+
+Place it in your rest-on-couch home directory
