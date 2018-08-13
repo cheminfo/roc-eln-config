@@ -2,6 +2,7 @@ exports.getToc = function(doc) {
   var content = doc.$content;
   var general = content.general || {};
   var spectra = content.spectra || {};
+  var names = general.name || [];
   var nmr = spectra.nmr;
   var ir = spectra.ir;
   var mass = spectra.mass;
@@ -34,7 +35,6 @@ exports.getToc = function(doc) {
       }
     }
   }
-
   return {
     mf: general.mf,
     mw: general.mw,
@@ -54,7 +54,11 @@ exports.getToc = function(doc) {
     nb1h: nb1h,
     nb13c: nb13c,
     modificationDate: doc.$modificationDate,
-    b64ShortId: hexToBase64(doc._id.substring(0, 12))
+    b64ShortId: hexToBase64(doc._id.substring(0, 12)),
+    names: names.map(function(name) {
+      // names are added for search purposes
+      if (name) return name.value;
+    })
   };
 };
 
