@@ -5,7 +5,7 @@ module.exports = {
   sampleStockById: {
     map: function(doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
-      const stock = doc.$content.stock || {};
+      var stock = doc.$content.stock || {};
       emitWithOwner(doc.$id, {
         stock: stock.history && stock.history[0],
         modificationDate: doc.$modificationDate
