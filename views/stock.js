@@ -1,6 +1,18 @@
 'use strict';
 
 module.exports = {
+  // Only stock info by $id
+  sampleStockById: {
+    map: function(doc) {
+      if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
+      const stock = doc.$content.stock || {};
+      emitWithOwner(doc.$id, {
+        stock: stock.history && stock.history[0],
+        modificationDate: doc.$modificationDate
+      });
+    },
+    designDoc: 'stock'
+  },
   stockSupplier: {
     map: function(doc) {
       if (doc.$kind !== 'sample') return;
@@ -76,6 +88,7 @@ module.exports = {
     },
     designDoc: 'stock'
   },
+  // Stock info and chemical info
   stockToc: {
     map: function test(doc) {
       if (
