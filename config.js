@@ -16,6 +16,7 @@ module.exports = {
       lib: {
         getReference: [
           './getReference.js',
+          'stock',
           'customApp',
           'sss',
           'stockSSS',

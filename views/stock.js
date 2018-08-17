@@ -5,8 +5,10 @@ module.exports = {
   sampleStockById: {
     map: function(doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
+      var getReference = require('views/lib/getReference').getReference;
       var stock = doc.$content.stock || {};
       emitWithOwner(doc.$id, {
+        reference: getReference(doc),
         stock: stock.history && stock.history[0],
         modificationDate: doc.$modificationDate
       });
