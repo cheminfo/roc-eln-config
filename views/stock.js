@@ -13,6 +13,7 @@ module.exports = {
         modificationDate: doc.$modificationDate
       });
     },
+    reduce: '_count',
     designDoc: 'stock',
     withOwner: true
   },
