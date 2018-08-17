@@ -11,7 +11,8 @@ module.exports = {
         modificationDate: doc.$modificationDate
       });
     },
-    designDoc: 'stock'
+    designDoc: 'stock',
+    withOwner: true
   },
   stockSupplier: {
     map: function(doc) {
