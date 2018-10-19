@@ -59,7 +59,7 @@ module.exports = {
       if (!doc.$content.stock) return;
       var history = doc.$content.stock.history;
       if (history && history.length) {
-        emit(history[0].location.split('-_.'));
+        emit(history[0].location.split(/[-_.]/));
       }
     },
     reduce: '_count',
