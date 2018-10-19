@@ -72,7 +72,7 @@ module.exports = {
       var history = doc.$content.stock.history;
       if (history && history.length) {
         if (history[0].wellType) {
-          emit(history[0].location.split(/[-_.]/), {
+          emitWithOwner(history[0].location.split(/[-_.]/), {
             $id: doc.$id,
             wellType: history[0].wellType
           });
