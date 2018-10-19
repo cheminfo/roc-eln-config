@@ -53,6 +53,18 @@ module.exports = {
     },
     designDoc: 'stock'
   },
+  locations: {
+    map: function(doc) {
+      if (doc.$kind !== 'sample') return;
+      if (!doc.$content.stock) return;
+      var history = doc.$content.stock.history;
+      if (history && history.length) {
+        emit(history[0].location.split('-_.'));
+      }
+    },
+    reduce: '_count',
+    designDoc: 'stock'
+  },
   stockLoc: {
     map: function(doc) {
       if (doc.$kind !== 'sample') return;
