@@ -65,24 +65,7 @@ module.exports = {
     reduce: '_count',
     designDoc: 'stock'
   },
-  locationsTypes: {
-    map: function(doc) {
-      if (doc.$kind !== 'sample') return;
-      if (!doc.$content.stock) return;
-      var history = doc.$content.stock.history;
-      if (history && history.length) {
-        if (history[0].wellType) {
-          emitWithOwner(history[0].location.split(/[-_.]/), {
-            $id: doc.$id,
-            wellType: history[0].wellType
-          });
-        }
-      }
-    },
-    withOwner: true,
-    designDoc: 'stock'
-  },
-  wellLocations: {
+  locationTypes: {
     map: function(doc) {
       if (doc.$kind !== 'sample') return;
       if (!doc.$content.stock) return;
