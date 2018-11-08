@@ -65,7 +65,7 @@ module.exports = {
     reduce: '_count',
     designDoc: 'stock'
   },
-  wellPlates: {
+  locationsTypes: {
     map: function(doc) {
       if (doc.$kind !== 'sample') return;
       if (!doc.$content.stock) return;
@@ -88,18 +88,35 @@ module.exports = {
       if (!doc.$content.stock) return;
       var history = doc.$content.stock.history;
       if (history && history.length) {
-        if (history[0].wellRows && history[0].wellColumns) {
-          const key = history[0].location.split(/[-_.]/);
-          key.push(
-            history[0].wellRows,
-            history[0].wellColumns,
-            history[0].wellFormat
-          );
-          emit(key);
+        emit(history[0].location.split(/[-_.]/), history[0]);
+      }
+    },
+    reduce: function(keys, values, rereduce) {
+      var newReduced = {
+        total: 0,
+        categories: {
+          regular: 0,
+          plate: 0
+        }
+      };
+      if (!rereduce) {
+        for (var i = 0; i < values.length; i++) {
+          newReduced.categories.total += 1;
+          if (values[i].plateRows) {
+            newReduced.plate += 1;
+          } else {
+            newReduced.categories.regular += 1;
+          }
+        }
+      } else {
+        var reduced = values;
+        for (var i = 0; i < reduced.length; i++) {
+          newReduced.categories.total += reduced[i].categories.total;
+          newReduced.categories.regular += reduced[i].categories.regular;
+          newReduced.plate += reduced[i].plate;
         }
       }
     },
-    reduce: '_count',
     designDoc: 'stock'
   },
   stockLoc: {
