@@ -82,6 +82,25 @@ module.exports = {
     withOwner: true,
     designDoc: 'stock'
   },
+  wellLocations: {
+    map: function(doc) {
+      if (doc.$kind !== 'sample') return;
+      if (!doc.$content.stock) return;
+      var history = doc.$content.stock.history;
+      if (history && history.length) {
+        if (history[0].wellType) {
+          const key = history[0].location.split(/[-_.]/);
+          key.push(
+            history[0].wellRows,
+            history[0].wellColumns,
+            history[0].wellFormat
+          );
+          emit(key);
+        }
+      }
+    },
+    designDoc: 'stock'
+  },
   stockLoc: {
     map: function(doc) {
       if (doc.$kind !== 'sample') return;
