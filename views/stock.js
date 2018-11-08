@@ -84,9 +84,9 @@ module.exports = {
       };
       if (!rereduce) {
         for (var i = 0; i < values.length; i++) {
-          newReduced.categories.total += 1;
+          newReduced.total += 1;
           if (values[i].plateRows) {
-            newReduced.plate += 1;
+            newReduced.categories.plate += 1;
           } else {
             newReduced.categories.regular += 1;
           }
@@ -94,9 +94,9 @@ module.exports = {
       } else {
         var reduced = values;
         for (var i = 0; i < reduced.length; i++) {
-          newReduced.categories.total += reduced[i].categories.total;
+          newReduced.total += reduced[i].total;
           newReduced.categories.regular += reduced[i].categories.regular;
-          newReduced.plate += reduced[i].plate;
+          newReduced.categories.plate += reduced[i].categories.plate;
         }
       }
       return newReduced;
