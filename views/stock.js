@@ -99,6 +99,7 @@ module.exports = {
           newReduced.plate += reduced[i].plate;
         }
       }
+      return newReduced;
     },
     designDoc: 'stock'
   },
