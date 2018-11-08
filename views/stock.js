@@ -80,7 +80,8 @@ module.exports = {
         categories: {
           regular: 0,
           plate: 0
-        }
+        },
+        plate: null
       };
       if (!rereduce) {
         for (var i = 0; i < values.length; i++) {
@@ -90,6 +91,9 @@ module.exports = {
           } else {
             newReduced.categories.regular += 1;
           }
+          if (values[i].plate) {
+            newReduced.plate = values[i].plate;
+          }
         }
       } else {
         var reduced = values;
@@ -97,6 +101,9 @@ module.exports = {
           newReduced.total += reduced[i].total;
           newReduced.categories.regular += reduced[i].categories.regular;
           newReduced.categories.plate += reduced[i].categories.plate;
+          if (reduced[i].plate) {
+            newReduced.plate = reduced[i].plate;
+          }
         }
       }
       return newReduced;
