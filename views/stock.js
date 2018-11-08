@@ -85,7 +85,7 @@ module.exports = {
       if (!rereduce) {
         for (var i = 0; i < values.length; i++) {
           newReduced.total += 1;
-          if (values[i].plateRows) {
+          if (values[i].plate) {
             newReduced.categories.plate += 1;
           } else {
             newReduced.categories.regular += 1;
