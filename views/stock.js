@@ -88,7 +88,7 @@ module.exports = {
       if (!doc.$content.stock) return;
       var history = doc.$content.stock.history;
       if (history && history.length) {
-        if (history[0].wellType) {
+        if (history[0].wellRows && history[0].wellColumns) {
           const key = history[0].location.split(/[-_.]/);
           key.push(
             history[0].wellRows,
