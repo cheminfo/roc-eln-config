@@ -99,6 +99,7 @@ module.exports = {
         }
       }
     },
+    reduce: '_count',
     designDoc: 'stock'
   },
   stockLoc: {
