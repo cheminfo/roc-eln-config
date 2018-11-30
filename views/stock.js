@@ -149,9 +149,27 @@ module.exports = {
     },
     designDoc: 'stock'
   },
+  // emit hierarchy array with stock info in value
+  hierarchicalStock: {
+    map: function hierarchicalStock(doc) {
+      if (doc.$type !== 'entry') {
+        return;
+      }
+      if (!doc.$content.hierarchy) {
+        return;
+      }
+      const stock = doc.$content.stock;
+      emitWithOwner(doc.$content.hierarchy, {
+        last: stock && stock.history && stock.history[0]
+      });
+    },
+    withOwner: true,
+    designDoc: 'stock'
+  },
+
   // Stock info and chemical info
   stockToc: {
-    map: function test(doc) {
+    map: function stockToc(doc) {
       if (
         doc.$kind === 'sample' &&
         doc.$content.general &&
