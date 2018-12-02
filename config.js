@@ -29,11 +29,9 @@ module.exports = {
           'customApp',
           'sss',
           'stockSSS',
-          'nmr',
-          'reactionSSS'
+          'nmr'
         ],
-        md5: ['./md5.js', 'dna'],
-        rxnParse: ['./rxn-parser.js', 'reactionSSS']
+        md5: ['./md5.js', 'dna']
       }
     }
   }

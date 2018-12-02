@@ -6,13 +6,11 @@ module.exports = {
       if (doc.$type !== 'entry' || doc.$kind !== 'reaction') {
         return;
       }
-      var getReference = require('views/lib/getReference').getReference;
-      var reference = getReference(doc);
       var reagents = doc.$content.reagents;
       for (var i = 0; i < reagents.length; i++) {
         var r = reagents[i];
         var result = {
-          reference: reference,
+          reference: doc.$id,
           ocl: r.ocl,
           mf: r.mf,
           em: r.em,
@@ -30,13 +28,11 @@ module.exports = {
       if (doc.$type !== 'entry' || doc.$kind !== 'reaction') {
         return;
       }
-      var getReference = require('views/lib/getReference').getReference;
-      var reference = getReference(doc);
       var products = doc.$content.products;
       for (var i = 0; i < products.length; i++) {
         var p = products[i];
         var result = {
-          reference: reference,
+          reference: doc.$id,
           ocl: p.ocl,
           mf: p.mf,
           em: p.em,
