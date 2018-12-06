@@ -160,7 +160,8 @@ module.exports = {
       }
       const stock = doc.$content.stock;
       emitWithOwner(doc.$content.hierarchy, {
-        stock: stock && stock.history && stock.history[0]
+        stock: stock && stock.history && stock.history[0],
+        $id: doc.$id
       });
     },
     withOwner: true,
