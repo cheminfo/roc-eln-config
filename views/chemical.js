@@ -22,7 +22,6 @@ module.exports = {
         }
 
         var getReference = require('views/lib/getReference').getReference;
-        var reference = getReference(doc);
         emitWithOwner(idStart, {
           reference: getReference(doc),
           mf: general.mf,
