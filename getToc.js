@@ -6,17 +6,13 @@ exports.getToc = function(doc) {
   var nmr = spectra.nmr;
   var ir = spectra.ir;
   var mass = spectra.mass;
+  var tga = spectra.thermogravimetricAnalysis;
+  var dsc = spectra.differentialScanningCalorimetry;
   var nb1d = 0,
     nb2d = 0,
     nb1h = 0,
     nb13c = 0;
   if (nmr) {
-    var has1d = nmr.some(function(nmr) {
-      return nmr.dimension === 1;
-    });
-    var has2d = nmr.some(function(nmr) {
-      return nmr.dimension === 2;
-    });
     for (var i = 0; i < nmr.length; i++) {
       for (var i = 0; i < nmr.length; i++) {
         if (nmr[i].dimension === 1) {
@@ -44,15 +40,15 @@ exports.getToc = function(doc) {
       coordinates: general.ocl.coordinates
     },
     keyword: general.keyword,
-    hasNmr: nmr && nmr.length,
-    hasIR: ir && ir.length,
-    hasMass: mass && mass.length,
-    has1d: has1d,
-    has2d: has2d,
+    nbNmr: nmr && nmr.length,
+    nbIR: ir && ir.length,
+    nbMass: mass && mass.length,
     nb1d: nb1d,
     nb2d: nb2d,
     nb1h: nb1h,
     nb13c: nb13c,
+    nbTGA: tga && tga.length,
+    nbDSC: dsc && dsc.length,
     modificationDate: doc.$modificationDate,
     b64ShortId: hexToBase64(doc._id.substring(0, 12)),
     names: names.map(function(name) {
