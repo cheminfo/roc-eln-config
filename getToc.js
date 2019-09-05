@@ -6,6 +6,9 @@ exports.getToc = function(doc) {
   var nmr = spectra.nmr;
   var ir = spectra.ir;
   var mass = spectra.mass;
+  var chrom = spectra.chromatogram;
+  var xray = spectra.xray;
+  var uv = spectra.uv;
   var tga = spectra.thermogravimetricAnalysis;
   var dsc = spectra.differentialScanningCalorimetry;
   var nb1d = 0,
@@ -40,15 +43,18 @@ exports.getToc = function(doc) {
       coordinates: general.ocl.coordinates
     },
     keyword: general.keyword,
-    nbNmr: nmr && nmr.length,
-    nbIR: ir && ir.length,
-    nbMass: mass && mass.length,
-    nb1d: nb1d,
-    nb2d: nb2d,
-    nb1h: nb1h,
-    nb13c: nb13c,
-    nbTGA: tga && tga.length,
-    nbDSC: dsc && dsc.length,
+    nbNmr: nmr && nmr.length || undefined,
+    nbIR: ir && ir.length || undefined,
+    nbMass: mass && mass.length || undefined,
+    nb1d: nb1d || undefined,
+    nb2d: nb2d || undefined,
+    nb1h: nb1h || undefined,
+    nb13c: nb13c || undefined,
+    nbTGA: tga && tga.length || undefined,
+    nbDSC: dsc && dsc.length || undefined,
+    nbUV: uv && uv.length || undefined,
+    nbChrom: chrom && chrom.length || undefined,
+    nbXray: xray && xray.length || undefined,
     modificationDate: doc.$modificationDate,
     b64ShortId: hexToBase64(doc._id.substring(0, 12)),
     names: names.map(function(name) {
