@@ -57,7 +57,7 @@ exports.getToc = function(doc) {
     nbXray: xray && xray.length || undefined,
     modificationDate: doc.$modificationDate,
     b64ShortId: hexToBase64(doc._id.substring(0, 12)),
-    hidden: content.hidden,
+    hidden: content.hidden || false,
     names: names.map(function(name) {
       // names are added for search purposes
       if (name) return name.value;
