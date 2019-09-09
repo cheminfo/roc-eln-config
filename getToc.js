@@ -5,6 +5,7 @@ exports.getToc = function(doc) {
   var names = general.name || [];
   var nmr = spectra.nmr;
   var ir = spectra.ir;
+  var raman = spectra.raman;
   var mass = spectra.mass;
   var chrom = spectra.chromatogram;
   var xray = spectra.xray;
@@ -45,6 +46,7 @@ exports.getToc = function(doc) {
     keyword: general.keyword,
     nbNmr: nmr && nmr.length || undefined,
     nbIR: ir && ir.length || undefined,
+    nbRaman: raman && raman.length || undefined,
     nbMass: mass && mass.length || undefined,
     nb1d: nb1d || undefined,
     nb2d: nb2d || undefined,
