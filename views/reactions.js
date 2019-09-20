@@ -96,6 +96,7 @@ module.exports = {
         modificationDate: doc.$modificationDate,
         title: doc.$content.title,
         rxn: doc.$content.reactionRXN,
+        hidden: doc.$content.hidden || false,
         status: doc.$content.status && doc.$content.status[0],
         overview: overview
       };
