@@ -105,7 +105,7 @@ module.exports = {
           })
           .map(function(p) {
             return {
-              code: p.code,
+              batch: p.batch,
               mf: p.mf,
               yield: p.yield
             };
