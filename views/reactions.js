@@ -83,14 +83,33 @@ module.exports = {
         overview = 'overview.png';
       }
 
+      var totalYield = 0;
+      doc.$content.products.forEach(function(p) {
+        totalYield += p.yield;
+      });
+
       var toSend = {
         reference: doc.$id,
         reagents: doc.$content.reagents.map(function(r) {
           return {
+            code: r.code,
+            mf: r.mf,
             iupac: r.iupac,
-            rn: r.rn
+            rn: r.rn,
+            equivalent: r.equivalent
           };
         }),
+        products: doc.$content.products
+          .filter(function(p) {
+            return p.yield > 0;
+          })
+          .map(function(p) {
+            return {
+              code: p.code,
+              mf: p.mf,
+              yield: p.yield
+            };
+          }),
         date: doc.$content.date,
         creationDate: doc.$creationDate,
         modificationDate: doc.$modificationDate,
@@ -98,7 +117,8 @@ module.exports = {
         rxn: doc.$content.reactionRXN,
         hidden: doc.$content.hidden || false,
         status: doc.$content.status && doc.$content.status[0],
-        overview: overview
+        overview: overview,
+        yield: totalYield
       };
       emitWithOwner(doc.$id, toSend);
     },
