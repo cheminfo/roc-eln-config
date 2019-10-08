@@ -35,6 +35,13 @@ exports.getToc = function(doc) {
       }
     }
   }
+  
+  function arrayLength(arr) {
+    if (arr && arr.length) {
+      return arr.length;
+    }
+    return 0;
+  }
   return {
     mf: general.mf,
     mw: general.mw,
@@ -44,19 +51,19 @@ exports.getToc = function(doc) {
       coordinates: general.ocl.coordinates
     },
     keyword: general.keyword,
-    nbNmr: nmr && nmr.length || undefined,
-    nbIR: ir && ir.length || undefined,
-    nbRaman: raman && raman.length || undefined,
-    nbMass: mass && mass.length || undefined,
-    nb1d: nb1d || undefined,
-    nb2d: nb2d || undefined,
-    nb1h: nb1h || undefined,
-    nb13c: nb13c || undefined,
-    nbTGA: tga && tga.length || undefined,
-    nbDSC: dsc && dsc.length || undefined,
-    nbUV: uv && uv.length || undefined,
-    nbChrom: chrom && chrom.length || undefined,
-    nbXray: xray && xray.length || undefined,
+    nbNmr: arrayLength(nmr),
+    nbIR: arrayLength(ir),
+    nbRaman: arrayLength(raman),
+    nbMass: arrayLength(mass),
+    nb1d: nb1d,
+    nb2d: nb2d,
+    nb1h: nb1h,
+    nb13c: nb13c,
+    nbTGA: arrayLength(tga),
+    nbDSC: arrayLength(dsc),
+    nbUV: arrayLength(uv),
+    nbChrom: arrayLength(chrom),
+    nbXray: arrayLength(xray),
     modificationDate: doc.$modificationDate,
     b64ShortId: hexToBase64(doc._id.substring(0, 12)),
     hidden: content.hidden || false,
