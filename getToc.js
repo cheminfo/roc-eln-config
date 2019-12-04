@@ -7,7 +7,7 @@ exports.getToc = function(doc) {
   var ir = spectra.ir;
   var raman = spectra.raman;
   var mass = spectra.mass;
-  var chrom = spectra.chromatogram;
+  var chromatogram = spectra.chromatogram;
   var xray = spectra.xray;
   var uv = spectra.uv;
   var tga = spectra.thermogravimetricAnalysis;
@@ -62,7 +62,7 @@ exports.getToc = function(doc) {
     nbTGA: arrayLength(tga),
     nbDSC: arrayLength(dsc),
     nbUV: arrayLength(uv),
-    nbChrom: arrayLength(chrom),
+    nbChromatogram: arrayLength(chromatogram),
     nbXray: arrayLength(xray),
     modificationDate: doc.$modificationDate,
     b64ShortId: hexToBase64(doc._id.substring(0, 12)),
