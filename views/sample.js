@@ -13,6 +13,18 @@ module.exports = {
     },
     withOwner: true
   },
+  sample_owners: {
+    map: function(doc) {
+      if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
+      var getReference = require('views/lib/getReference').getReference;
+      var getSampleOwners = require('views/lib/getSampleOwners').getToc;
+      var reference = getReference(doc);
+      var toc = getSampleOwners(doc);
+      toc.reference = reference;
+      emitWithOwner(reference, toc);
+    },
+    withOwner: true
+  },
   sampleByUuid: {
     map: function(doc) {
       if (doc.$type === 'entry' && doc.$kind === 'sample') {

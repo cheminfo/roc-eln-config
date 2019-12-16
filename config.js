@@ -23,14 +23,9 @@ module.exports = {
           'reactionSSS'
         ],
         getToc: ['./getToc.js', 'customApp'],
+        getSampleOwners: ['./getSampleOwners.js', 'customApp'],
         nmr: ['./nmr.js', 'nmr'],
-        ocl: [
-          './openchemlib-core.js',
-          'customApp',
-          'sss',
-          'stockSSS',
-          'nmr'
-        ],
+        ocl: ['./openchemlib-core.js', 'customApp', 'sss', 'stockSSS', 'nmr'],
         md5: ['./md5.js', 'dna']
       }
     }
