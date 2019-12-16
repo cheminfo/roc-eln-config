@@ -5,7 +5,7 @@ module.exports = {
     map: function(doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
       var getReference = require('views/lib/getReference').getReference;
-      var getToc = require('views/lib/getToc').getToc;
+      var getToc = require('views/lib/getToc').getSampleOwners;
       var reference = getReference(doc);
       var toc = getToc(doc);
       toc.reference = reference;
