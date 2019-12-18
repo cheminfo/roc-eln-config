@@ -10,6 +10,7 @@ exports.getSampleOwners = function(doc) {
       coordinates: general.ocl.coordinates
     },
     keyword: general.keyword,
+    creationDate: doc.$creationDate,
     modificationDate: doc.$modificationDate,
     hidden: content.hidden || false,
     owners: doc.$owners
