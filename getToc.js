@@ -49,7 +49,7 @@ exports.getToc = function(doc) {
     // We don't need the index
     ocl: general.ocl && {
       value: general.ocl.value,
-      coordinates: general.ocl.coordinates,
+      coordinates: general.ocl.coordinates
     },
     keyword: general.keyword,
     nbNmr: arrayLength(nmr),
@@ -71,7 +71,7 @@ exports.getToc = function(doc) {
     names: names.map(function(name) {
       // names are added for search purposes
       if (name) return name.value;
-    }),
+    })
   };
 };
 
@@ -89,8 +89,8 @@ function hexToBase64(str) {
         .replace(/\r|\n/g, '')
         .replace(/([\da-fA-F]{2}) ?/g, '0x$1 ')
         .replace(/ +$/, '')
-        .split(' '),
-    ),
+        .split(' ')
+    )
   );
 }
 
@@ -112,7 +112,7 @@ function btoa(input) {
     charCode = str.charCodeAt((idx += 3 / 4));
     if (charCode > 0xff) {
       throw new InvalidCharacterError(
-        "'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.",
+        "'btoa' failed: The string to be encoded contains characters outside of the Latin1 range."
       );
     }
     block = (block << 8) | charCode;
