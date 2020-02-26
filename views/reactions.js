@@ -113,6 +113,7 @@ module.exports = {
         date: doc.$content.date,
         creationDate: doc.$creationDate,
         modificationDate: doc.$modificationDate,
+        owners: doc.$owners,
         title: doc.$content.title,
         rxn: doc.$content.reactionRXN,
         hidden: doc.$content.hidden || false,
