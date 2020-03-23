@@ -52,6 +52,7 @@ exports.getToc = function(doc) {
       coordinates: general.ocl.coordinates
     },
     keyword: general.keyword,
+    meta: general.meta,
     nbNmr: arrayLength(nmr),
     nbIR: arrayLength(ir),
     nbRaman: arrayLength(raman),
