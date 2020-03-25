@@ -2,6 +2,7 @@ exports.getToc = function(doc) {
   var content = doc.$content;
   var general = content.general || {};
   var spectra = content.spectra || {};
+  var biology = content.biology || {};
   var names = general.name || [];
   var nmr = spectra.nmr;
   var ir = spectra.ir;
@@ -12,6 +13,8 @@ exports.getToc = function(doc) {
   var uv = spectra.uv;
   var tga = spectra.thermogravimetricAnalysis;
   var dsc = spectra.differentialScanningCalorimetry;
+  var nucleic = biology.nucleic;
+  var peptidic = biology.peptidic;
   var nb1d = 0,
     nb2d = 0,
     nb1h = 0,
@@ -66,6 +69,8 @@ exports.getToc = function(doc) {
     nbUV: arrayLength(uv),
     nbChromatogram: arrayLength(chromatogram),
     nbXray: arrayLength(xray),
+    nbNucleic: arrayLength(nucleic),
+    nbPeptidic: arrayLength(peptidic),
     modificationDate: doc.$modificationDate,
     b64ShortId: hexToBase64(doc._id.substring(0, 12)),
     hidden: content.hidden || false,
