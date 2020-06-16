@@ -13,6 +13,8 @@ exports.getToc = function(doc) {
   var uv = spectra.uv;
   var tga = spectra.thermogravimetricAnalysis;
   var dsc = spectra.differentialScanningCalorimetry;
+  var xrd = spectra.xrd;
+  var xps = spectra.xps;
   var nucleic = biology.nucleic;
   var peptidic = biology.peptidic;
   var nb1d = 0,
@@ -67,6 +69,8 @@ exports.getToc = function(doc) {
     nb13c: nb13c,
     nbTGA: arrayLength(tga),
     nbDSC: arrayLength(dsc),
+    nbXRD: arrayLength(xrd),
+    nbXPS: arrayLength(xps),
     nbUV: arrayLength(uv),
     nbChromatogram: arrayLength(chromatogram),
     nbXray: arrayLength(xray),
