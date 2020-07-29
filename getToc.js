@@ -1,4 +1,4 @@
-exports.getToc = function(doc) {
+exports.getToc = function (doc) {
   var content = doc.$content;
   var general = content.general || {};
   var spectra = content.spectra || {};
@@ -41,6 +41,18 @@ exports.getToc = function(doc) {
     }
   }
 
+  function formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return parseInt([year, month, day].join(''));
+  }
+
   function arrayLength(arr) {
     if (arr && arr.length) {
       return arr.length;
@@ -77,9 +89,13 @@ exports.getToc = function(doc) {
     nbNucleic: arrayLength(nucleic),
     nbPeptidic: arrayLength(peptidic),
     modificationDate: doc.$modificationDate,
+    creationDate: doc.$creationDate,
+    created: formatDate(doc.$creationDate),
+    modified: formatDate(doc.$modificationDate),
+    ownsers: doc.$owners,
     b64ShortId: hexToBase64(doc._id.substring(0, 12)),
     hidden: content.hidden || false,
-    names: names.map(function(name) {
+    names: names.map(function (name) {
       // names are added for search purposes
       if (name) return name.value;
     })
