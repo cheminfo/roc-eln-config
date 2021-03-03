@@ -16,6 +16,7 @@ exports.getToc = function(doc) {
   var dcs = spectra.differentialCentrifugalSedimentation;
   var hg = spectra.hgPorosimetry;
   var xrd = spectra.xrd;
+  var xrf = spectra.xrf;
   var xps = spectra.xps;
   var nucleic = biology.nucleic;
   var peptidic = biology.peptidic;
@@ -72,6 +73,7 @@ exports.getToc = function(doc) {
     nbTGA: arrayLength(tga),
     nbDSC: arrayLength(dsc),
     nbXRD: arrayLength(xrd),
+    nbXRF: arrayLength(xrf),
     nbXPS: arrayLength(xps),
     nbDCS: arrayLength(dcs),
     nbHg: arrayLength(hg),
