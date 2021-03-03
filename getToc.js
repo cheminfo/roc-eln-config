@@ -13,6 +13,8 @@ exports.getToc = function(doc) {
   var uv = spectra.uv;
   var tga = spectra.thermogravimetricAnalysis;
   var dsc = spectra.differentialScanningCalorimetry;
+  var dcs = spectra.differentialCentrifugalSedimentation;
+  var hg = spectra.hgPorosimetry;
   var xrd = spectra.xrd;
   var xps = spectra.xps;
   var nucleic = biology.nucleic;
@@ -45,7 +47,7 @@ exports.getToc = function(doc) {
     if (arr && arr.length) {
       return arr.length;
     }
-    return 0;
+    return undefined;
   }
   return {
     mf: general.mf,
@@ -63,14 +65,16 @@ exports.getToc = function(doc) {
     nbIR: arrayLength(ir),
     nbRaman: arrayLength(raman),
     nbMass: arrayLength(mass),
-    nb1d: nb1d,
-    nb2d: nb2d,
-    nb1h: nb1h,
-    nb13c: nb13c,
+    nb1d: nb1d || undefined,
+    nb2d: nb2d || undefined,
+    nb1h: nb1h || undefined,
+    nb13c: nb13c || undefined,
     nbTGA: arrayLength(tga),
     nbDSC: arrayLength(dsc),
     nbXRD: arrayLength(xrd),
     nbXPS: arrayLength(xps),
+    nbDCS: arrayLength(dcs),
+    nbHg: arrayLength(hg),
     nbUV: arrayLength(uv),
     nbChromatogram: arrayLength(chromatogram),
     nbXray: arrayLength(xray),
