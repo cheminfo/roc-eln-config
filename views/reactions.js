@@ -119,7 +119,8 @@ module.exports = {
         hidden: doc.$content.hidden || false,
         status: doc.$content.status && doc.$content.status[0],
         overview: overview,
-        yield: totalYield
+        yield: totalYield,
+        meta: doc.$content.meta
       };
       emitWithOwner(doc.$id, toSend);
     },
