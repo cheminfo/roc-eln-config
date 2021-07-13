@@ -1,4 +1,4 @@
-exports.getToc = function(doc) {
+exports.getToc = function (doc) {
   var content = doc.$content;
   var general = content.general || {};
   var spectra = content.spectra || {};
@@ -10,6 +10,7 @@ exports.getToc = function(doc) {
   var mass = spectra.mass;
   var chromatogram = spectra.chromatogram;
   var xray = spectra.xray;
+  var isotherm = spectra.isotherm;
   var uv = spectra.uv;
   var tga = spectra.thermogravimetricAnalysis;
   var dsc = spectra.differentialScanningCalorimetry;
@@ -78,6 +79,7 @@ exports.getToc = function(doc) {
     nbDCS: arrayLength(dcs),
     nbHg: arrayLength(hg),
     nbUV: arrayLength(uv),
+    nbIsotherm: arrayLength(isotherm),
     nbChromatogram: arrayLength(chromatogram),
     nbXray: arrayLength(xray),
     nbNucleic: arrayLength(nucleic),
@@ -85,7 +87,7 @@ exports.getToc = function(doc) {
     modificationDate: doc.$modificationDate,
     b64ShortId: hexToBase64(doc._id.substring(0, 12)),
     hidden: content.hidden || false,
-    names: names.map(function(name) {
+    names: names.map(function (name) {
       // names are added for search purposes
       if (name) return name.value;
     })
