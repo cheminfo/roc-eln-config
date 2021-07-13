@@ -16,6 +16,8 @@ exports.getToc = function (doc) {
   var dsc = spectra.differentialScanningCalorimetry;
   var dcs = spectra.differentialCentrifugalSedimentation;
   var hg = spectra.hgPorosimetry;
+  var pelletHardness = spectra.pelletHardness;
+  var oan = spectra.oan;
   var xrd = spectra.xrd;
   var xrf = spectra.xrf;
   var xps = spectra.xps;
@@ -78,6 +80,8 @@ exports.getToc = function (doc) {
     nbXPS: arrayLength(xps),
     nbDCS: arrayLength(dcs),
     nbHg: arrayLength(hg),
+    nbPelletHardness: arrayLength(pelletHardness),
+    nbOAN: arrayLength(oan),
     nbUV: arrayLength(uv),
     nbIsotherm: arrayLength(isotherm),
     nbChromatogram: arrayLength(chromatogram),
