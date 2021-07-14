@@ -12,6 +12,7 @@ exports.getToc = function (doc) {
   var xray = spectra.xray;
   var isotherm = spectra.isotherm;
   var uv = spectra.uv;
+  var iv = spectra.iv;
   var tga = spectra.thermogravimetricAnalysis;
   var dsc = spectra.differentialScanningCalorimetry;
   var dcs = spectra.differentialCentrifugalSedimentation;
@@ -83,6 +84,7 @@ exports.getToc = function (doc) {
     nbPelletHardness: arrayLength(pelletHardness),
     nbOAN: arrayLength(oan),
     nbUV: arrayLength(uv),
+    nbIV: arrayLength(iv),
     nbIsotherm: arrayLength(isotherm),
     nbChromatogram: arrayLength(chromatogram),
     nbXray: arrayLength(xray),
