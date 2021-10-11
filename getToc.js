@@ -48,6 +48,15 @@ exports.getToc = function (doc) {
       }
     }
   }
+  var location = undefined;
+  if (
+    content.stock &&
+    content.stock.history &&
+    content.stock.history[0] &&
+    content.stock.history[0].status === 500
+  ) {
+    location = content.stock.history[0].location;
+  }
 
   function arrayLength(arr) {
     if (arr && arr.length) {
@@ -92,13 +101,16 @@ exports.getToc = function (doc) {
     nbXray: arrayLength(xray),
     nbNucleic: arrayLength(nucleic),
     nbPeptidic: arrayLength(peptidic),
-    modificationDate: doc.$modificationDate,
     b64ShortId: hexToBase64(doc._id.substring(0, 12)),
     hidden: content.hidden || false,
     names: names.map(function (name) {
       // names are added for search purposes
       if (name) return name.value;
-    })
+    }),
+    location: location,
+    owner: doc.$owners[0],
+    created: new Date(doc.$creationDate).toISOString().substring(0, 10),
+    modified: new Date(doc.$modificationDate).toISOString().substring(0, 10)
   };
 };
 
