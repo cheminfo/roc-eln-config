@@ -75,6 +75,7 @@ exports.getToc = function (doc) {
     },
     keyword: general.keyword,
     meta: general.meta,
+    misc: content.misc,
     title: general.title,
     nbNmr: arrayLength(nmr),
     nbIR: arrayLength(ir),
