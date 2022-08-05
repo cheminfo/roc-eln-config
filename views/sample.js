@@ -9,7 +9,7 @@ module.exports = {
       var reference = getReference(doc);
       var toc = getToc(doc);
       toc.reference = reference;
-      emitWithOwner(reference, toc);
+      emitWithOwner(doc.$modificationDate, toc);
     },
     withOwner: true
   },
