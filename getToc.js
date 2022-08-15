@@ -5,24 +5,6 @@ exports.getToc = function (doc) {
   var biology = content.biology || {};
   var names = general.name || [];
   var nmr = spectra.nmr;
-  var ir = spectra.ir;
-  var raman = spectra.raman;
-  var mass = spectra.mass;
-  var chromatogram = spectra.chromatogram;
-  var xray = spectra.xray;
-  var isotherm = spectra.isotherm;
-  var uv = spectra.uv;
-  var iv = spectra.iv;
-  var cv = spectra.cyclicVoltammetry;
-  var tga = spectra.thermogravimetricAnalysis;
-  var dsc = spectra.differentialScanningCalorimetry;
-  var dcs = spectra.differentialCentrifugalSedimentation;
-  var hg = spectra.hgPorosimetry;
-  var pelletHardness = spectra.pelletHardness;
-  var oan = spectra.oan;
-  var xrd = spectra.xrd;
-  var xrf = spectra.xrf;
-  var xps = spectra.xps;
   var nucleic = biology.nucleic;
   var peptidic = biology.peptidic;
   var nb1d = 0,
@@ -78,28 +60,29 @@ exports.getToc = function (doc) {
     misc: content.misc,
     title: general.title,
     nbNmr: arrayLength(nmr),
-    nbIR: arrayLength(ir),
-    nbRaman: arrayLength(raman),
-    nbMass: arrayLength(mass),
+    nbIR: arrayLength(spectra.ir),
+    nbRaman: arrayLength(spectra.raman),
+    nbMass: arrayLength(spectra.mass),
     nb1d: nb1d || undefined,
     nb2d: nb2d || undefined,
     nb1h: nb1h || undefined,
     nb13c: nb13c || undefined,
-    nbTGA: arrayLength(tga),
-    nbDSC: arrayLength(dsc),
-    nbXRD: arrayLength(xrd),
-    nbXRF: arrayLength(xrf),
-    nbXPS: arrayLength(xps),
-    nbDCS: arrayLength(dcs),
-    nbHg: arrayLength(hg),
-    nbPelletHardness: arrayLength(pelletHardness),
-    nbOAN: arrayLength(oan),
-    nbUV: arrayLength(uv),
-    nbIV: arrayLength(iv),
-    nbCV: arrayLength(cv),
-    nbIsotherm: arrayLength(isotherm),
-    nbChromatogram: arrayLength(chromatogram),
-    nbXray: arrayLength(xray),
+    nbTGA: arrayLength(spectra.thermogravimetricAnalysis),
+    nbDSC: arrayLength(spectra.differentialScanningCalorimetry),
+    nbXRD: arrayLength(spectra.xrd),
+    nbXRF: arrayLength(spectra.xrf),
+    nbXPS: arrayLength(spectra.xps),
+    nbDCS: arrayLength(spectra.differentialCentrifugalSedimentation),
+    nbHg: arrayLength(spectra.hgPorosimetry),
+    nbPermeability: arrayLength(spectra.permeability),
+    nbPelletHardness: arrayLength(spectra.pelletHardness),
+    nbOAN: arrayLength(spectra.oan),
+    nbUV: arrayLength(spectra.uv),
+    nbIV: arrayLength(spectra.iv),
+    nbCV: arrayLength(spectra.cyclicVoltammetry),
+    nbIsotherm: arrayLength(spectra.isotherm),
+    nbChromatogram: arrayLength(spectra.chromatogram),
+    nbXray: arrayLength(spectra.xray),
     nbNucleic: arrayLength(nucleic),
     nbPeptidic: arrayLength(peptidic),
     b64ShortId: hexToBase64(doc._id.substring(0, 12)),
