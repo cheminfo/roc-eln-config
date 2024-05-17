@@ -178,6 +178,8 @@ module.exports = {
       ) {
         var general = doc.$content.general;
         var stock = doc.$content.stock;
+        var history = stock.history;
+        if(!history || !history.length) return;
         var identifier = doc.$content.identifier;
         var idStart = doc.$id;
         if (idStart && idStart.length && typeof idStart === 'object') {
