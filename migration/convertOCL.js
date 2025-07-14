@@ -1,4 +1,3 @@
-const path = require('path');
 const superagent = require('superagent');
 const password = process.env.COUCHDB_PASSWORD;
 const OCL = require('openchemlib');
