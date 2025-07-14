@@ -214,15 +214,16 @@ module.exports = {
           result.cas = c.value;
         }
         result.name = general.name || [];
-        if (stock && stock.history && stock.history.length) {
-          var history = doc.$content.stock.history;
-          var last = history[0];
-          result.last = {
-            loc: last.location,
-            date: last.date,
-            status: last.status,
-          };
-        }
+        result.supplier = stock.supplier;
+        result.quantity = stock.quantity;
+        // We already checked above that history has at least 1 element
+        var last = stock.history[0];
+        result.last = {
+          loc: last.location,
+          date: last.date,
+          status: last.status,
+        };
+
         emitWithOwner(idStart, result);
       }
     },
