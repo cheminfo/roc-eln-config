@@ -2,7 +2,7 @@
 
 module.exports = {
   nmrIndex: {
-    map: function(doc) {
+    map: function (doc) {
       var nmr = require('views/lib/nmr');
       var nmrIndexes = nmr.getIndexes(doc);
       if (nmrIndexes) {
@@ -12,6 +12,6 @@ module.exports = {
       }
     },
     designDoc: 'nmr',
-    withOwner: true
-  }
+    withOwner: true,
+  },
 };

@@ -1,3 +1,3 @@
-exports.getReference = function(entry) {
+exports.getReference = function (entry) {
   return entry.$id.join(' ');
 };

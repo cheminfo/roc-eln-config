@@ -2,7 +2,7 @@
 
 module.exports = {
   reagentSSS: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'reaction') {
         return;
       }
@@ -14,17 +14,17 @@ module.exports = {
           ocl: r.ocl,
           mf: r.mf,
           em: r.em,
-          mw: r.mw
+          mw: r.mw,
         };
         emitWithOwner(doc._id, result);
       }
     },
     reduce: '_count',
     designDoc: 'reactionSSS',
-    withOwner: true
+    withOwner: true,
   },
   productSSS: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'reaction') {
         return;
       }
@@ -36,17 +36,17 @@ module.exports = {
           ocl: p.ocl,
           mf: p.mf,
           em: p.em,
-          mw: p.mw
+          mw: p.mw,
         };
         emitWithOwner(doc._id, result);
       }
     },
     reduce: '_count',
     designDoc: 'reactionSSS',
-    withOwner: true
+    withOwner: true,
   },
   reactionTree: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'reaction') {
         return;
       }
@@ -56,7 +56,7 @@ module.exports = {
         for (var i = 0; i < arr.length; ++i) {
           var current = arr[i];
           var toEmit = {
-            ocl: current.ocl
+            ocl: current.ocl,
           };
           if (codes.indexOf(current.code) !== -1) {
             toEmit.yield = current.yield;
@@ -72,10 +72,10 @@ module.exports = {
     },
     reduce: '_count',
     designDoc: 'reactionTree',
-    withOwner: true
+    withOwner: true,
   },
   reactionToc: {
-    map: function(doc) {
+    map: function (doc) {
       var overview;
       if (doc.$type !== 'entry' || doc.$kind !== 'reaction') return;
 
@@ -83,35 +83,34 @@ module.exports = {
         overview = 'overview.png';
       }
 
-      var filteredProducts = doc.$content.products.filter(function(p) {
+      var filteredProducts = doc.$content.products.filter(function (p) {
         if (p.kind && p.kind !== 'pure') return false;
         return p.yield > 0;
       });
 
       var totalYield = 0;
-      filteredProducts.forEach(function(p) {
+      filteredProducts.forEach(function (p) {
         totalYield += p.yield;
       });
 
       var toSend = {
         reference: doc.$id,
-        reagents: doc.$content.reagents.map(function(r) {
+        reagents: doc.$content.reagents.map(function (r) {
           return {
             code: r.code,
             mf: r.mf,
             iupac: r.iupac,
             rn: r.rn,
-            equivalent: r.equivalent
+            equivalent: r.equivalent,
           };
         }),
-        products: filteredProducts
-          .map(function(p) {
-            return {
-              batch: p.batch,
-              mf: p.mf,
-              yield: p.yield
-            };
-          }),
+        products: filteredProducts.map(function (p) {
+          return {
+            batch: p.batch,
+            mf: p.mf,
+            yield: p.yield,
+          };
+        }),
         date: doc.$content.date,
         creationDate: doc.$creationDate,
         modificationDate: doc.$modificationDate,
@@ -122,11 +121,11 @@ module.exports = {
         status: doc.$content.status && doc.$content.status[0],
         overview: overview,
         yield: totalYield,
-        meta: doc.$content.meta
+        meta: doc.$content.meta,
       };
       emitWithOwner(doc.$id, toSend);
     },
     withOwner: true,
-    designDoc: 'reaction'
-  }
+    designDoc: 'reaction',
+  },
 };

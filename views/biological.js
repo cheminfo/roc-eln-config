@@ -2,7 +2,7 @@
 
 module.exports = {
   dnaMd5: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
       if (!doc.$content.biology || !doc.$content.biology.nucleic) return;
       var md5 = require('views/lib/md5');
@@ -12,7 +12,7 @@ module.exports = {
       for (var i = 0; i < dna.length; i++) {
         toEmit.push({
           ref: dna[i].reference,
-          seq: []
+          seq: [],
         });
         // Iterate over the sequences the genbank file contains - usually just 1
         for (var j = 0; j < dna[i].seq.length; j++) {
@@ -21,7 +21,7 @@ module.exports = {
             size: seq.size,
             name: seq.name,
             md5: md5.md5(seq.sequence),
-            features: []
+            features: [],
           });
           // Iterate over the features a genbank file contains
           for (var k = 0; k < seq.features.length; k++) {
@@ -30,9 +30,9 @@ module.exports = {
               md5: md5.md5(
                 seq.sequence.slice(
                   seq.features[k].start,
-                  seq.features[k].end + 1
-                )
-              )
+                  seq.features[k].end + 1,
+                ),
+              ),
             });
           }
         }
@@ -42,11 +42,11 @@ module.exports = {
       }
     },
     designDoc: 'dna',
-    withOwner: true
+    withOwner: true,
   },
 
   dnaFeatures: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
       if (!doc.$content.biology || !doc.$content.biology.nucleic) return;
       var md5 = require('views/lib/md5');
@@ -56,7 +56,7 @@ module.exports = {
       for (var i = 0; i < dna.length; i++) {
         toEmit.push({
           ref: dna[i].reference,
-          features: []
+          features: [],
         });
         // Iterate over the sequences the genbank file contains - usually just 1
         for (var j = 0; j < dna[i].seq.length; j++) {
@@ -65,12 +65,12 @@ module.exports = {
           for (var k = 0; k < seq.features.length; k++) {
             var sequence = seq.sequence.slice(
               seq.features[k].start,
-              seq.features[k].end + 1
+              seq.features[k].end + 1,
             );
             toEmit[i].features.push({
               name: seq.features[k].name,
               md5: md5.md5(sequence),
-              seq: sequence
+              seq: sequence,
             });
           }
         }
@@ -80,11 +80,11 @@ module.exports = {
       }
     },
     designDoc: 'dna',
-    withOwner: true
+    withOwner: true,
   },
 
   dnaSequences: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
       if (!doc.$content.biology || !doc.$content.biology.nucleic) return;
       var md5 = require('views/lib/md5');
@@ -94,7 +94,7 @@ module.exports = {
       for (var i = 0; i < dna.length; i++) {
         toEmit.push({
           ref: dna[i].reference,
-          seq: []
+          seq: [],
         });
         // Iterate over the sequences the genbank file contains - usually just 1
         for (var j = 0; j < dna[i].seq.length; j++) {
@@ -103,7 +103,7 @@ module.exports = {
             size: seq.size,
             name: seq.name,
             md5: md5.md5(seq.sequence),
-            seq: seq.sequence
+            seq: seq.sequence,
           });
         }
       }
@@ -112,6 +112,6 @@ module.exports = {
       }
     },
     designDoc: 'dna',
-    withOwner: true
-  }
+    withOwner: true,
+  },
 };

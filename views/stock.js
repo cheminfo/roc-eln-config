@@ -3,27 +3,27 @@
 module.exports = {
   // Only stock info by $id
   sampleStockById: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
       var getReference = require('views/lib/getReference').getReference;
       var stock = doc.$content.stock || {};
       emitWithOwner(doc.$id, {
         reference: getReference(doc),
         stock: stock.history && stock.history[0],
-        modificationDate: doc.$modificationDate
+        modificationDate: doc.$modificationDate,
       });
     },
     reduce: '_count',
     designDoc: 'stock',
-    withOwner: true
+    withOwner: true,
   },
   stockSupplier: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$kind !== 'sample') return;
       if (!doc.$content.stock) return;
       emit(doc.$content.stock.supplier);
     },
-    reduce: function(keys, values, rereduce) {
+    reduce: function (keys, values, rereduce) {
       function countKeys(keys, values, rereduce) {
         var val = {};
         if (rereduce) {
@@ -51,10 +51,10 @@ module.exports = {
 
       return countKeys(keys, values, rereduce);
     },
-    designDoc: 'stock'
+    designDoc: 'stock',
   },
   locations: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$kind !== 'sample') return;
       if (!doc.$content.stock) return;
       var history = doc.$content.stock.history;
@@ -63,10 +63,10 @@ module.exports = {
       }
     },
     reduce: '_count',
-    designDoc: 'stock'
+    designDoc: 'stock',
   },
   locationTypes: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$kind !== 'sample') return;
       if (!doc.$content.stock) return;
       var history = doc.$content.stock.history;
@@ -74,14 +74,14 @@ module.exports = {
         emit(history[0].location.split(/[-_.]/), history[0]);
       }
     },
-    reduce: function(keys, values, rereduce) {
+    reduce: function (keys, values, rereduce) {
       var newReduced = {
         total: 0,
         categories: {
           regular: 0,
-          plate: 0
+          plate: 0,
         },
-        plate: null
+        plate: null,
       };
       if (!rereduce) {
         for (var i = 0; i < values.length; i++) {
@@ -108,10 +108,10 @@ module.exports = {
       }
       return newReduced;
     },
-    designDoc: 'stock'
+    designDoc: 'stock',
   },
   stockLoc: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$kind !== 'sample') return;
       if (!doc.$content.stock) return;
       var history = doc.$content.stock.history;
@@ -119,7 +119,7 @@ module.exports = {
         emit(history[0].location);
       }
     },
-    reduce: function(keys, values, rereduce) {
+    reduce: function (keys, values, rereduce) {
       function countKeys(keys, values, rereduce) {
         var val = {};
         if (rereduce) {
@@ -147,7 +147,7 @@ module.exports = {
 
       return countKeys(keys, values, rereduce);
     },
-    designDoc: 'stock'
+    designDoc: 'stock',
   },
   // emit hierarchy array with stock info in value
   hierarchicalStock: {
@@ -161,11 +161,11 @@ module.exports = {
       const stock = doc.$content.stock;
       emitWithOwner(doc.$content.hierarchy, {
         stock: stock && stock.history && stock.history[0],
-        $id: doc.$id
+        $id: doc.$id,
       });
     },
     withOwner: true,
-    designDoc: 'stock'
+    designDoc: 'stock',
   },
 
   // Stock info and chemical info
@@ -179,7 +179,7 @@ module.exports = {
         var general = doc.$content.general;
         var stock = doc.$content.stock;
         var history = stock.history;
-        if(!history || !history.length) return;
+        if (!history || !history.length) return;
         var identifier = doc.$content.identifier;
         var idStart = doc.$id;
         if (idStart && idStart.length && typeof idStart === 'object') {
@@ -199,7 +199,7 @@ module.exports = {
           reference: getReference(doc),
           ocl: general.ocl,
           mf: general.mf,
-          mw: general.mw
+          mw: general.mw,
         };
         if (identifier && identifier.cas && identifier.cas.length) {
           var cas = identifier.cas;
@@ -220,13 +220,13 @@ module.exports = {
           result.last = {
             loc: last.location,
             date: last.date,
-            status: last.status
+            status: last.status,
           };
         }
         emitWithOwner(idStart, result);
       }
     },
     withOwner: true,
-    designDoc: 'stockSSS'
-  }
+    designDoc: 'stockSSS',
+  },
 };

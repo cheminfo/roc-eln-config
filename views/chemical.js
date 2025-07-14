@@ -2,7 +2,7 @@
 
 module.exports = {
   substructureSearch: {
-    map: function(doc) {
+    map: function (doc) {
       if (
         doc.$kind === 'sample' &&
         doc.$content.general &&
@@ -27,11 +27,11 @@ module.exports = {
           mf: general.mf,
           em: general.em,
           mw: general.mw,
-          ocl: general.ocl
+          ocl: general.ocl,
         });
       }
     },
     withOwner: true,
-    designDoc: 'sss'
-  }
+    designDoc: 'sss',
+  },
 };

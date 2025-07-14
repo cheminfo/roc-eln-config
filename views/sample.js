@@ -2,7 +2,7 @@
 
 module.exports = {
   sample_toc: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
       var getReference = require('views/lib/getReference').getReference;
       var getToc = require('views/lib/getToc').getToc;
@@ -11,35 +11,35 @@ module.exports = {
       toc.reference = reference;
       emitWithOwner(doc.$modificationDate, toc);
     },
-    withOwner: true
+    withOwner: true,
   },
   sample_owners: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
       var getReference = require('views/lib/getReference').getReference;
-      var getSampleOwners = require('views/lib/getSampleOwners')
-        .getSampleOwners;
+      var getSampleOwners =
+        require('views/lib/getSampleOwners').getSampleOwners;
       var reference = getReference(doc);
       var toc = getSampleOwners(doc);
       toc.reference = reference;
       emitWithOwner(reference, toc);
     },
-    withOwner: true
+    withOwner: true,
   },
   sampleByUuid: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type === 'entry' && doc.$kind === 'sample') {
         emitWithOwner(doc._id, null);
       }
     },
-    withOwner: true
+    withOwner: true,
   },
   sampleId: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
       emit(doc.$id[0]);
     },
-    reduce: function(keys, values, rereduce) {
+    reduce: function (keys, values, rereduce) {
       var regexp = /^([A-Za-z]+)-(\d+)/;
 
       function s(k, obj) {
@@ -68,13 +68,13 @@ module.exports = {
         }
       }
       return obj;
-    }
+    },
   },
   sampleById: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry' || doc.$kind !== 'sample') return;
       emitWithOwner(doc.$id, null);
     },
-    withOwner: true
-  }
+    withOwner: true,
+  },
 };

@@ -7,10 +7,10 @@ module.exports = {
       emitWithOwner(doc.$id, {
         viewID: doc.$id[1],
         sampleID: doc.$id[2],
-        name: doc.$id[3]
+        name: doc.$id[3],
       });
     },
     withOwner: true,
-    designDoc: 'userAnalysis'
-  }
+    designDoc: 'userAnalysis',
+  },
 };

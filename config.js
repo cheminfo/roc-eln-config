@@ -1,5 +1,5 @@
 module.exports = {
-  defaultEntry: function() {
+  defaultEntry: function () {
     return {
       spectra: {
         nmr: [],
@@ -7,8 +7,8 @@ module.exports = {
         raman: [],
         mass: [],
         gc: [],
-        lc: []
-      }
+        lc: [],
+      },
     };
   },
   customDesign: {
@@ -20,13 +20,13 @@ module.exports = {
           'customApp',
           'sss',
           'stockSSS',
-          'reactionSSS'
+          'reactionSSS',
         ],
         getToc: ['./getToc.js', 'customApp'],
         getSampleOwners: ['./getSampleOwners.js', 'customApp'],
         nmr: ['./nmr.js', 'nmr'],
-        md5: ['./md5.js', 'dna']
-      }
-    }
-  }
+        md5: ['./md5.js', 'dna'],
+      },
+    },
+  },
 };

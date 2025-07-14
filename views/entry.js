@@ -2,19 +2,19 @@
 
 module.exports = {
   entryByOwnersAndKind: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type === 'entry') {
         emitWithOwner(doc.$kind);
       }
     },
     reduce: '_count',
-    withOwner: true
+    withOwner: true,
   },
   entryByIdWithOwner: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry') return;
       emitWithOwner(doc.$id, null);
     },
-    withOwner: true
-  }
+    withOwner: true,
+  },
 };

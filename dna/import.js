@@ -36,19 +36,19 @@ module.exports = {
     const toReturn = {
       jpath: 'biology.dna',
       content_type: 'chemical/x-genbank',
-      reference: reference
+      reference: reference,
     };
 
     if (/\.gb$/i.test(filename)) {
       // parse genbank
       const parsed = genbankParser(contents);
       toReturn.data = {
-        seq: parsed
+        seq: parsed,
       };
       toReturn.field = 'genbank';
     } else {
       throw new Error('unexpected file extension: ' + filename);
     }
     return toReturn;
-  }
+  },
 };

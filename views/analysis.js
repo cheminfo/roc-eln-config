@@ -2,7 +2,7 @@
 
 module.exports = {
   analysisBySampleId: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$type !== 'entry') return;
       if (doc.$kind !== 'analysis') return;
       if (Array.isArray(doc.$content.samples)) {
@@ -11,35 +11,35 @@ module.exports = {
         }
       }
     },
-    designDoc: 'analysis'
+    designDoc: 'analysis',
   },
   analysisBySampleAndId: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$kind !== 'analysis') return;
       if (doc.$type !== 'entry') return;
       var len = doc.$id.length - 1;
       emitWithOwner([doc.$id[0], doc.$id[len]]);
     },
     withOwner: true,
-    designDoc: 'analysis'
+    designDoc: 'analysis',
   },
   analysisRequestByUuid: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$kind !== 'analysisRequest') return;
       emit([doc.$owners[0], doc.$content.productUuid]);
     },
-    designDoc: 'analysisRequest'
+    designDoc: 'analysisRequest',
   },
   analysisRequestByKindAndStatus: {
-    map: function(doc) {
+    map: function (doc) {
       if (doc.$kind !== 'analysisRequest') return;
-      var emitWithOwner = function(key, data) {
+      var emitWithOwner = function (key, data) {
         for (var i = 0; i < doc.$owners.length; i++) {
           emit([doc.$owners[i]].concat(key), data);
         }
       };
 
-      var customMap = function(doc) {
+      var customMap = function (doc) {
         var reference =
           doc.$content.productId && doc.$content.productId.length
             ? doc.$content.productId.join(' ')
@@ -49,12 +49,12 @@ module.exports = {
         emitWithOwner([status.status], {
           reference: reference,
           status: status,
-          kind: kind
+          kind: kind,
         });
       };
       customMap(doc);
     },
     designDoc: 'analysisRequest',
-    withOwner: true
-  }
+    withOwner: true,
+  },
 };
