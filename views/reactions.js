@@ -83,8 +83,13 @@ module.exports = {
         overview = 'overview.png';
       }
 
+      var filteredProducts = doc.$content.products.filter(function(p) {
+        if (p.kind && p.kind !== 'pure') return false;
+        return p.yield > 0;
+      });
+
       var totalYield = 0;
-      doc.$content.products.forEach(function(p) {
+      filteredProducts.forEach(function(p) {
         totalYield += p.yield;
       });
 
@@ -99,10 +104,7 @@ module.exports = {
             equivalent: r.equivalent
           };
         }),
-        products: doc.$content.products
-          .filter(function(p) {
-            return p.yield > 0;
-          })
+        products: filteredProducts
           .map(function(p) {
             return {
               batch: p.batch,
