@@ -1,3 +1,3 @@
 exports.getReference = function (entry) {
-  return entry.$id.join(' ');
+  return entry.$id.filter(idPart => idPart).join(' ');
 };
