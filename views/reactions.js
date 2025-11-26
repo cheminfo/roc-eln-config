@@ -123,7 +123,7 @@ module.exports = {
         yield: totalYield,
         meta: doc.$content.meta,
       };
-      emitWithOwner(doc.$id, toSend);
+      emitWithOwner(doc.$modificationDate, toSend);
     },
     withOwner: true,
     designDoc: 'reaction',
