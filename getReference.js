@@ -1,3 +1,8 @@
 exports.getReference = function (entry) {
-  return entry.$id.filter((idPart) => idPart).join(' ');
+  if(typeof entry.$id === 'string') {
+    return entry.$id;
+  } else if(Array.isArray(entry.$id)) {
+    return entry.$id.join(' ');
+  }
+  return entry.$id;
 };
