@@ -16,6 +16,7 @@ module.exports = {
 
       var getReference = require('views/lib/getReference').getReference;
       emitWithOwner(doc.$modificationDate, {
+        kind: doc.$kind,
         reference: getReference(doc),
         creationDate: doc.$creationDate,
         modificationDate: doc.$modificationDate,
